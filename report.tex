@@ -1,7 +1,8 @@
 \documentclass {article}
 
 \title {
-	Seminar: Advanced Topics in Quantum Computing \\
+	Seminar: Advanced Topics in \\
+	Quantum Computing \\
 	On efficient encodings for quantum \\
 	solutions to vehicle routing problems
 }
@@ -25,7 +26,6 @@ a more optimised minimal encoding is suggested that offers a logarithmic
 reduction in necessary computing power. In spite of certain drawbacks incurred
 by employing this minimal encoding, experiments have shown that the solution
 quality is not heavily impacted.
-
 \end {abstract}
 
 % structure:
@@ -39,6 +39,61 @@ quality is not heavily impacted.
 % vii.	appendix
 
 \section {Introduction}
+The Vehicle Routing Problem (VRP) is concerned with finding optimal routes
+for vehicles to deliver goods to a set of customers with some geographical
+distance between them. It is obvious that this type of problem has far
+reaching practical applications in various contexts, in fact the need to find
+a reasonable solution is almost ubiquitous when dealing with logistical
+planning, for example to determine efficient road, rail, shipping, and air
+routes for commercial or public interest.
+
+VRP, being itself a more general version of the Travelling Salesman Problem
+(TSP), is similarly an NP hard combinatorial optimisation problem with a
+solution space scaling factorially in the number of customers, and thus
+finding the definitive optimal solution already becomes intractable at
+two digit customer counts. The most optimal classical algorithms known to date
+and used in practice employ heuristics and greedy methods to construct routes
+within single digit percentage tolerances.
+
+More recently, the noisy intermediate scale quantum (NISQ) era has paved
+the way for the development of variational quantum algorithms alongside the
+potent quantum annealing method as a contender for computing reliable and
+near optimal solutions to combinatorial optimisation problems, exploiting
+the unique unique inherent property of quantum algorithms to operate on the
+entire solution space at once, albeit incrementally and probabilistically.
+
+Initial tests have shown some promise in applying these quantum algorithms
+to the VRP against classical solvers, achieving comparable accuracy on
+small problem instances. As quantum hardware continues to improve, it makes
+sense to also look at utilising it as efficiently as possible. Solving VRP
+naively using quantum methods maps one classical variable to one whole qubit,
+quickly exhausting the already limited computing resources when introducing
+additional constraints such as vehicle capacity or time windows on larger
+problem scales more commonly encountered in practical scenarios.
+
+This report discusses recent research into an idea to mitigate this
+uneconomical use of computing power through a more clever and refined 
+encoding of the input problem, in order to achieve a logarithmic correlation
+between problem size and resource consumption.
+Section II outlines a formal description of the VRP and some of its variants.
+Section III explains the QUBO and its application to solving the VRP on
+quantum hardware, along with a brief mention of the closely related
+Ising model and in particular its Hamiltonian function.
+Section IV details the encoding approaches onto the quantum system and lists
+benefits and drawbacks for each.
+Published experimental observations describing the impact of the encodings
+are discussed in Section V,
+and the report concludes in Section VI.
+
+\section {Vehicle Routing Problem}
+The vehicle routing problem (VRP) is a generalisation of the perhaps more
+well known NP hard Travelling Salesman Problem (TSP). VRP seeks the optimal
+solution 
+
+\section {Problem Formulation}
+The quadratic unconstrained binary optimisation (QUBO) 
+
+\section {Encoding Approaches}
 
 \section {Discussion}
 
