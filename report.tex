@@ -1,5 +1,8 @@
 \documentclass {article}
 
+\usepackage {amsmath}
+\usepackage {amssymb}
+
 \title {
 	Seminar: Advanced Topics in \\
 	Quantum Computing \\
@@ -88,7 +91,25 @@ and the report concludes in Section VI.
 \section {Vehicle Routing Problem}
 The vehicle routing problem (VRP) is a generalisation of the perhaps more
 well known NP hard Travelling Salesman Problem (TSP). VRP seeks the optimal
-solution 
+route or routes for a number of vehicles to traverse in order to deliver
+certain goods to customers in various locations.
+
+The problem is modelled intuitively by a graph $G = (V, E)$
+where each node or vertex $v_i \in V$ represents the location of a customer 
+and each edge $(i, j) \in E$ connecting two vertices corresponds to a path
+traversible by the delivery vehicle. $\lVert V \rVert = N$ is then the number
+of customers considered. Traversing an edge $(i, j)$ typically incurs
+a cost represented by $c_{ij} \in \mathbb R_{\ge 0}$, of which the total
+value summed up across the entire journey is to be optimised, ie. made as
+small as possible. This cost may be set based on travel time, distance,
+or other concerns with economic consequences.
+
+Vehicles may only travel across edges. Furthermore, each graph contains a
+designated node $v_0 \in V$ known as the depot. Valid routes must always
+begin and end at the depot. A valid route is then a tuple
+$(v_n, v_{n+1}, ..., v_m)$ s.t.
+$v_n = v_m = v_0 \; \land \; \forall n. \; (n, n{+}1) \in E$
+
 
 \section {Problem Formulation}
 The quadratic unconstrained binary optimisation (QUBO) 
