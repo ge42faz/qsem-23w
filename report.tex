@@ -2,7 +2,8 @@
 
 \title {
 	Seminar: Advanced Topics in Quantum Computing \\
-	-- insert title here --
+	On efficient encodings for quantum \\
+	solutions to vehicle routing problems
 }
 \author {Eben Jowie Haezer}
 \date {\today}
@@ -10,8 +11,40 @@
 \begin {document}
 \maketitle
 
-lorem ipsum dolor sit amet
+\begin {abstract}
+This report details recent advances in the optimisation of computing resources
+for quantum approaches to solving the vehicle routing problem (VRP) and 
+its variants. This set of problems is of significant importance with regard
+to logistical applications in industry. In accordance with the input
+constraints of the quantum hardware, the problem is formulated as a quadratic
+unconstrained binary optimisation (QUBO). A simple approach known as the
+full encoding results in each solution represented by a unique basis state,
+thereby requiring one qubit per classical variable. Due to this inefficiency
+in resource allocation when considering the at worst factorial search space,
+a more optimised minimal encoding is suggested that offers a logarithmic
+reduction in necessary computing power. In spite of certain drawbacks incurred
+by employing this minimal encoding, experiments have shown that the solution
+quality is not heavily impacted.
 
+\end {abstract}
+
+% structure:
+%
+% i.	introduction
+% ii.	vrp
+% iii.	qubo
+% iv.	encoding schemes
+% v.	discussion
+% vi.	conclusion
+% vii.	appendix
+
+\section {Introduction}
+
+\section {Discussion}
+
+\section {Conclusion}
+
+\section {Appendix}
 
 \end {document}
 
