@@ -3,6 +3,12 @@
 \usepackage {amsmath}
 \usepackage {amssymb}
 
+\DeclareMathOperator* {\argmin} {argmin}
+\newcommand {\qvec}[1] {\vert #1 \rangle}
+\newcommand {\qcovec}[1] {\langle #1 \vert}
+\newcommand {\qeval}[1] {\langle #1 \rangle}
+
+
 \title {
 	Seminar: Advanced Topics in \\
 	Quantum Computing \\
@@ -127,12 +133,38 @@ $[t_i^0, t_i^f] \subseteq \mathbb R_{\ge 0}$ in which they expect a delivery.
 For the depot $v_0$ this interval is $[0, \infty)$ for simplicity. Hence the
 edge costs $c_{ij}$ represent travel time between two nodes in this
 formulation, and the objective shifts to finding the optimal route that
-serves all customers while respecting these time windows, or failing this
+serves all customers whilst respecting these time windows, or failing this
 attempting to maximise the number of customers or total goods supplied.
 
-
 \section {Problem Formulation}
-The quadratic unconstrained binary optimisation (QUBO) 
+The quadratic unconstrained binary optimisation (QUBO) is concerned with
+finding a binary vector $\qvec{x^*} \in \{0, 1\}^n$, $n \in \mathbb N$ that
+fulfils the following optimal condition:
+\begin {equation}
+\qvec{x^*} = \argmin_{\qvec{x} \in \{0, 1\}^n} \; \qcovec{x} Q \qvec{x}
+\end {equation}
+where the linear operator $Q \in \mathbb R^{n \times n}$ is a symmetric
+matrix. This can be interpreted as an objective function:
+\begin {equation}
+f_Q(x) = \qcovec{x} Q \qvec{x} =
+\sum_{i = 1}^n \sum_{j = i}^n Q_{ij} x_i x_j
+\end {equation}
+
+In general, QUBO is also NP hard due to the exponential scaling of the
+solution space in $\lVert \{0, 1\}^n \rVert \in \mathcal{O}(2^n)$ with respect
+to the number of dimensions $n$. Many combinatorial optimisation problems have
+conversions into QUBO, not least the VRP and its variants. These conversions
+are useful to establish a uniform problem description for solvers to work with,
+however in the context of quantum solvers, they are further motivated by the 
+equivalence between QUBO and the Hamiltonian of the Ising model for
+ferromagnetism in particle physics.
+
+The Ising model describes a lattice structure $\Lambda$ in which each lattice
+site houses a particle. The spin of each particle is represented by a discrete
+variable $\sigma_i \in \{-1, 1\}$. This spin value governs the local magnetic
+moment of the particle according to the shell model (appendix). Neighbouring
+lattice sites influence each other, termed nearest neighbour interactions,
+represented 
 
 \section {Encoding Approaches}
 
