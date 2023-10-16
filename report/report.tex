@@ -115,10 +115,21 @@ minimal constraints. However, additional constraints may be imposed as
 needed to better reflect a practical use case at the expense of slightly
 complicating the model. For example, the capacitated VRP or CVRP stipulates
 a fixed upper bound on the carrying capacity of each vehicle leaving the
-depot, in most cases this value is consistent across all vehicles. Customers
+depot, where in most cases this value is consistent across all vehicles.
+Customers $v_i$ are then assigned a score $d_i \in \mathbb R_{\ge 0}$ 
+reflecting their demand quantity. This introduces the complication of
+optimising for capacity and demand as well as edge cost, and the ideal
+solution for a given graph will most likely differ from the simple VRP.
 
 On the other hand, the VRP with time windows (VRPTW) introduces a secondary
-time parameter.
+time parameter. Customers $v_i$ are assigned a certain time window
+$[t_i^0, t_i^f] \subseteq \mathbb R_{\ge 0}$ in which they expect a delivery.
+For the depot $v_0$ this interval is $[0, \infty)$ for simplicity. Hence the
+edge costs $c_{ij}$ represent travel time between two nodes in this
+formulation, and the objective shifts to finding the optimal route that
+serves all customers while respecting these time windows, or failing this
+attempting to maximise the number of customers or total goods supplied.
+
 
 \section {Problem Formulation}
 The quadratic unconstrained binary optimisation (QUBO) 
