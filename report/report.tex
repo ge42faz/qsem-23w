@@ -114,7 +114,7 @@ Vehicles may only travel across edges. Furthermore, each graph contains a
 designated node $v_0 \in V$ known as the depot. Valid routes must always
 begin and end at the depot. A valid route is then a tuple
 $(v_n, v_{n+1}, ..., v_m)$ s.t.
-$v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$
+$v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 
 For a problem to be classified as VRP, it should fulfil at least the above
 minimal constraints. However, additional constraints may be imposed as
@@ -175,14 +175,28 @@ H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i \sigma_j - \mu \sum_{i} h_i \sigma_i
 \end {equation}
 where $\mu$ is the magnetic moment.
 
+Replacing $\sigma$ with the Pauli operators yields the
+quantum mechanical description:
 \begin {equation}
 H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i^z \sigma_j^z
-- \mu \sum_{i} h_i \sigma_i^x
+- \mu \sum_{i} h_i^z \sigma_i^z - \mu \sum_{i} h_i^x \sigma_i^x
 \end {equation}
+where the second term with $\sigma^z$ describes the external longitudinal
+field, and the final term with $\sigma^x$ describes the transverse field per
+lattice site.
 
-Through the reversible transformation $\sigma \mapsto 2x - 1$ one
-obtains the equivalent QUBO formulation for free, and hence optimising the
-Ising Hamiltonian is equivalent to optimising the QUBO objective function.
+Notably, the Ising model is typically simplified to exclude the transverse
+field, resulting in a classical Hamiltonian where the constituent terms
+commute ie. a diagonal operator in the $Z$ basis. This means the
+ground state is described by a basis vector $\qvec{\phi}$ with
+$\phi \in \{0, 1\}^n$, allowing for simple measurement to obtain a bit
+string solution.
+
+Through the reversible transformation $\sigma \mapsto 2x - 1$, where
+$x \in \{0, 1\}$ s.t. $-1 \mapsto 0$ and $1 \mapsto 1$, one
+obtains the equivalent QUBO formulation for free, and hence optimising for 
+the ground state of the Ising Hamiltonian is equivalent to optimising the
+QUBO objective function.
 
 
 \section {Encoding Approaches}
