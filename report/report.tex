@@ -161,10 +161,29 @@ ferromagnetism in particle physics.
 
 The Ising model describes a lattice structure $\Lambda$ in which each lattice
 site houses a particle. The spin of each particle is represented by a discrete
-variable $\sigma_i \in \{-1, 1\}$. This spin value governs the local magnetic
-moment of the particle according to the shell model (appendix). Neighbouring
-lattice sites influence each other, termed nearest neighbour interactions,
-represented 
+variable $\sigma_i \in \{-1, 1\}$, $i \in \Lambda$. This spin value governs the
+local magnetic moment of the particle according to the shell model (appendix).
+Neighbouring lattice sites $\qeval{i\;j}. \; i, j \in \Lambda$ influence each
+other, termed nearest neighbour interactions, whose interaction strength is
+represented by $J_{ij} \in \mathbb R$. Furthermore, one may consider the
+influence of an external field $h_i$ at site $i \in \Lambda$, such that the
+spin wants to align with this field.
+
+Thus the Hamiltonian reads:
+\begin {equation}
+H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i \sigma_j - \mu \sum_{i} h_i \sigma_i
+\end {equation}
+where $\mu$ is the magnetic moment.
+
+\begin {equation}
+H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i^z \sigma_j^z
+- \mu \sum_{i} h_i \sigma_i^x
+\end {equation}
+
+Through the reversible transformation $\sigma \mapsto 2x - 1$ one
+obtains the equivalent QUBO formulation for free, and hence optimising the
+Ising Hamiltonian is equivalent to optimising the QUBO objective function.
+
 
 \section {Encoding Approaches}
 

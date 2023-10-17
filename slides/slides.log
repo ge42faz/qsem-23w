@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  16 OCT 2023 10:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  17 OCT 2023 07:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -887,7 +887,7 @@ Package rerunfilecheck Info: File `slides.out' has not changed.
 Here is how much of TeX's memory you used:
  21321 strings out of 478268
  415115 string characters out of 5846347
- 671854 words of memory out of 5000000
+ 671853 words of memory out of 5000000
  39106 multiletter control sequences out of 15000+600000
  471071 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -895,7 +895,7 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 ></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb>
 
-Output written on slides/slides.pdf (2 pages, 27636 bytes).
+Output written on slides/slides.pdf (2 pages, 27553 bytes).
 PDF statistics:
  78 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream
