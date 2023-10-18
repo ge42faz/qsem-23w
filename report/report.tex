@@ -1,7 +1,22 @@
-\documentclass {article}
+\documentclass [10pt]{article}
 
 \usepackage {amsmath}
 \usepackage {amssymb}
+\usepackage {multicol}
+\usepackage [a4paper, total={16cm, 24cm}]{geometry}
+\usepackage {titlesec}
+
+\renewcommand {\thesection} {\Roman{section}} 
+\renewcommand {\thesubsection} {\thesection.\Roman{subsection}}
+
+\titleformat {\section}
+  {\normalfont\normalsize\bfseries}{\thesection.}{1em}{}
+\titleformat {\subsection}
+  {\normalfont\normalsize\itshape}{\thesubsection.}{1em}{}
+\titleformat {\subsubsection}
+  {\normalfont\normalsize\itshape}{\thesubsubsection.}{1em}{}
+
+\setlength {\columnsep}{0.5cm}
 
 \DeclareMathOperator* {\argmin} {argmin}
 \newcommand {\qvec}[1] {\vert #1 \rangle}
@@ -38,6 +53,8 @@ reduction in necessary computing power. In spite of certain drawbacks incurred
 by employing this minimal encoding, experiments have shown that the solution
 quality is not heavily impacted.
 \end {abstract}
+
+\begin {multicols}{2}
 
 % structure:
 %
@@ -200,14 +217,28 @@ obtains the equivalent QUBO formulation for free, and hence optimising for
 the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
+\begin {equation}
+C(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
+\end {equation}
 
 \section {Encoding Approaches}
+A simple mapping from the VRP to QUBO uses what is known as the complete
+encoding, where each classical binary variable is represented by a single
+qubit.
+
+
+
 
 \section {Discussion}
 
 \section {Conclusion}
 
+\bibliographystyle {IEEEtran}
+\bibliography {report}
+
 \section {Appendix}
+
+\end {multicols}
 
 \end {document}
 
