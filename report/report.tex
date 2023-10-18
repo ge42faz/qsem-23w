@@ -24,6 +24,7 @@
 \newcommand {\qeval}[1] {\langle #1 \rangle}
 \newcommand {\qinner}[2] {\langle #1 \vert #2 \rangle}
 \newcommand {\qouter}[2] {\qvec{#1} \qcovec{#2}}
+\newcommand {\qnorm}[1] {\lVert #1 \rVert}
 
 
 \title {
@@ -122,7 +123,7 @@ certain goods to customers in various locations.
 The problem is modelled intuitively by a graph $G = (V, E)$
 where each node or vertex $v_i \in V$ represents the location of a customer 
 and each edge $(i, j) \in E$ connecting two vertices corresponds to a path
-traversible by a delivery vehicle. $\lVert V \rVert = N$ is then the number
+traversible by a delivery vehicle. $\qnorm{V} = N$ is then the number
 of customers considered. Traversing an edge $(i, j)$ typically incurs
 a cost represented by $c_{ij} \in \mathbb R_{\ge 0}$, of which the total
 value summed up across the entire journey is to be optimised, ie. made as
@@ -170,7 +171,7 @@ f_Q(x) = \qcovec{x} Q \qvec{x} =
 \end {equation}
 
 In general, QUBO is also NP hard due to the exponential scaling of the
-solution space in $\lVert \{0, 1\}^n \rVert \in \mathcal{O}(2^n)$ with respect
+solution space in $\qnorm{\{0, 1\}^n} \in \mathcal{O}(2^n)$ with respect
 to the number of dimensions $n$. Many combinatorial optimisation problems have
 conversions into QUBO, not least the VRP and its variants. These conversions
 are useful to establish a uniform problem description for solvers to work with,
@@ -217,17 +218,94 @@ obtains the equivalent QUBO formulation for free, and hence optimising for
 the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
+\section {Encoding Approaches}
+We assume the use of a conventional NISQ processor to tackle a VRP involving
+$n_c$ classical binary variables. A simple mapping from the VRP to QUBO uses
+what is known as the complete encoding, where each classical binary variable
+is represented by a single qubit. The quantum state takes the form:
+\begin {align}
+\qvec{\psi(\theta)} 
+&= U(\theta)\qvec{\psi_0} \\
+&= \sum_{x \in \{0, \; 1\}^{n_c}} \alpha_x \qvec{x}
+\end {align}
+
+In this case, sampling the quantum state yields any given bitstring solution
+${x \in \{0, \; 1\}^{n_c}}$ with probability $\qnorm{\alpha_x}^2$, where
+$\alpha$ is parametrised by a set of angles $\theta$. In variational
+algorithms, $\theta$ are heuristically determined values that serve to tune
+arrays of rotation unitaries, which are adjusted after each pass to attain
+the optimised state $\qvec{\psi^*} = U(\theta^*)\qvec{\psi_0}$.
+
+The QUBO objective function in the complete encoding is described by the
+expectation of the equivalent Ising Hamiltonian:
 \begin {equation}
-C(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
+C_{cpl}(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
 \end {equation}
 
-\section {Encoding Approaches}
-A simple mapping from the VRP to QUBO uses what is known as the complete
-encoding, where each classical binary variable is represented by a single
+
+The advantage of the complete encoding is its ability to capture all
+possible correlations between classical variables. This however comes at
+the cost of requiring computational resources that scale proportionally
+to the problem size, as each binary classical variable is mapped to a
+single qubit, hence $n_q = n_c$. As a result, feasible applications of the
+complete encoding are limited to toy examples. Even as quantum hardware
+becomes more powerful, it is prudent to examine encoding schemes that can more
+efficiently take advantage of the available technology.
+
+We consider the minimal encoding as presented in \cite{effbinopt}. This scheme
+allows for $n_c$ classical variables to be mapped to $n_q = 1 + \log_2 n_c$
+qubits, using a $n_r = \log_2 n_c$ wide register and $n_a = 1$ auxiliary
 qubit.
 
+Let $\{\qvec{\phi_i}\}$ and $\{\qvec{0}, \qvec{1}\}$ denote a basis for the
+register and auxiliary qubits respectively. The system state $\qvec{\psi}$ is
+then defined as:
+\begin {equation}
+\qvec{\psi(\theta)} = \sum_{i=1}^{n_c} \beta_i
+(a_i \qvec{0} + b_i \qvec{1}) \; \qvec{\phi_i}
+\end {equation}
+where the coefficients $\beta_i$, $a_i$, $b_i$ are parametrised by $\theta$.
 
+This encodes in the register the probability of measuring each register state
+$\qvec{\phi_i}$ that corresponds to an individual classical variable $x_i$,
+and in the auxiliary the probability of each of these binary variables taking
+on the value $0$ or $1$ according to the Born rule:
+$\Pr \; (x_i = 0) = \qnorm{a_i}^2$ and $\Pr \; (x_i = 1) = \qnorm{b_i}^2$.
+Taken together, the probability of measuring a certain bitstring solution
+for a given $\theta$ is given simply as:
+\begin {equation}
+\label {prob}
+\Pr \vec{x_i} = \prod_{i=1}^{n_c} \Pr x_i = \prod_{i=1}^{n_c} \qnorm{b_i}^2
+\end {equation}
 
+As an example, consider $n_c = 4$, $n_r = 2$. The normalised system
+state representing a particular bitstring $\vec{x}^* = (1, 1, 1, 0)^\dag$
+would be $\qvec{\psi^*} = \frac{1}{2}(\qvec{1}\qvec{00} + \qvec{1}\qvec{01}
++ \qvec{1}\qvec{10} + \qvec{0}\qvec{11})$.
+
+The variational algorithm is run for several trials to obtain an estimate
+of the coefficients $a_i$ and $b_i$, from which the probability distribution
+for bitstring solutions as given in \eqref{prob} may be constructed.
+
+As stated previously, with the minimal encoding a logarithmic scaling of
+qubits to classical variables is achieved. However, this comes at the
+expense of a more limited expressiveness in the quantum state. As seen in
+\eqref{prob}, the probability distribution is sufficient to encode only
+statistically independent classical variables, ie. those s.t.
+$\forall i \; j. \; \Pr x_i \land x_j = \Pr x_i \Pr x_j$, which tend not to
+be the case for highly complex and intertwined problems as in the VRP.
+
+The objective function in the minimal encoding has the form:
+\begin {align}
+C_{min}(\theta)
+&= \sum_{i \neq j}^{n_c} Q_{ij} \qnorm{b_i}^2 \qnorm{b_j}^2
++ \sum_{i=1}^{n_c} Q_{ii} \qnorm{b_i}^2 \\
+&= \sum_{i \neq j}^{n_c} Q_{ij}
+\frac{\qeval{P_i^1}}{\qeval{P_i}} \frac{\qeval{P_j^1}}{\qeval{P_j}}
++ \sum_{i=1}^{n_c} Q_{ii} \frac {\qeval{P_i^1}} {P_i}
+\end {align}
+expressed as projectors $P_i = \qouter{\phi_i}{\phi_i}$ and
+$P_i^1 = \qouter{1}{1} \otimes P_i$.
 
 \section {Discussion}
 
