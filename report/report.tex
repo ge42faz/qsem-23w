@@ -218,6 +218,8 @@ obtains the equivalent QUBO formulation for free, and hence optimising for
 the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
+With this knowledge, one can formulate the VRP as follows.
+
 \section {Encoding Approaches}
 We assume the use of a conventional NISQ processor to tackle a VRP involving
 $n_c$ classical binary variables. A simple mapping from the VRP to QUBO uses
@@ -264,18 +266,19 @@ then defined as:
 \qvec{\psi(\theta)} = \sum_{i=1}^{n_c} \beta_i
 (a_i \qvec{0} + b_i \qvec{1}) \; \qvec{\phi_i}
 \end {equation}
-where the coefficients $\beta_i$, $a_i$, $b_i$ are parametrised by $\theta$.
+where the coefficients $\beta_i$, $a_i$, $b_i$ are parametrised by $\theta$,
+as in the complete encoding.
 
-This encodes in the register the probability of measuring each register state
-$\qvec{\phi_i}$ that corresponds to an individual classical variable $x_i$,
-and in the auxiliary the probability of each of these binary variables taking
-on the value $0$ or $1$ according to the Born rule:
+This encodes in the register the probability $\beta_i$ of measuring each
+register state $\qvec{\phi_i}$ that corresponds to an individual classical
+variable $x_i$, and in the auxiliary the probability of each of these binary
+variables taking on the value $0$ or $1$ according to the Born rule:
 $\Pr \; (x_i = 0) = \qnorm{a_i}^2$ and $\Pr \; (x_i = 1) = \qnorm{b_i}^2$.
 Taken together, the probability of measuring a certain bitstring solution
-for a given $\theta$ is given simply as:
+$x$ for a given $\theta$ is expressed by:
 \begin {equation}
 \label {prob}
-\Pr \vec{x_i} = \prod_{i=1}^{n_c} \Pr x_i = \prod_{i=1}^{n_c} \qnorm{b_i}^2
+\Pr x = \prod_{i=1}^{n_c} \Pr x_i = \prod_{i=1}^{n_c} \qnorm{b_i}^2
 \end {equation}
 
 As an example, consider $n_c = 4$, $n_r = 2$. The normalised system
@@ -292,8 +295,8 @@ qubits to classical variables is achieved. However, this comes at the
 expense of a more limited expressiveness in the quantum state. As seen in
 \eqref{prob}, the probability distribution is sufficient to encode only
 statistically independent classical variables, ie. those s.t.
-$\forall i \; j. \; \Pr x_i \land x_j = \Pr x_i \Pr x_j$, which tend not to
-be the case for highly complex and intertwined problems as in the VRP.
+$\forall i \; j. \; \Pr \; (x_i \land x_j) = \Pr x_i \Pr x_j$, which tend
+not to be the case for highly complex and intertwined problems as in the VRP.
 
 The objective function in the minimal encoding has the form:
 \begin {align}
