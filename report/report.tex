@@ -271,16 +271,18 @@ H_{\text{cap}} = \sum_r \big( m - (\Delta + \sum_{t, \; i} d_i x_{t, i}^r) \big)
 \end {equation}
 where $d_i$ represents the demand score of node $v_i$ and
 \begin {equation}
-\Delta = \sum_{d=0}^{\lceil \log_2 1+m \rceil - 1} 2^d \; a_d^r
+\Delta = \sum_{b=0}^{\lceil \log_2 1+m \rceil - 1} 2^b \; a_b^r
 \end {equation}
 
-The additional term $\Delta$ in $H_{\text{cap}}$ is a result of this constraint
+While the principle remains identical to the first two constraints,
+The additional term $\Delta$ in $H_{\text{cap}}$ is a result of \textbf{cap}
 being somewhat more relaxed, in that any value
 $\sum_{t, \; i} d_i x_{t, i}^r \leq m$
 for the loading of the vehicle is acceptable, instead of a hard requirement.
-This is conveyed through the auxiliary variables $a_d^r \in \{0, \; 1\}$,
+This is conveyed through the auxiliary variables $a_b^r \in \{0, \; 1\}$,
 which may be freely set to perfectly zero out unused vehicle capacity for the
-route $r$. 
+route $r$. Intuitively, $\Delta$ represents the tolerable deviation of the
+amount loaded onto the vehicle on route $r$ compared to maximum capacity.
 Naturally not fully loading the vehicle and forcing an early return to depot
 may be suboptimal in many cases, however the edge cost metric represented by
 the objective function $H_c$ is sufficient to deter this.
