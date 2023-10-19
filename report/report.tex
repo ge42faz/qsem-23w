@@ -134,7 +134,7 @@ or other concerns with economic consequences.
 Vehicles may only travel across edges. Furthermore, each graph contains a
 designated node $v_0 \in V$ known as the depot. Valid routes must always
 begin and end at the depot. A valid route is then a tuple
-$(v_n, v_{n+1}, ..., v_m)$ s.t.
+$r = (v_n, v_{n+1}, ..., v_m)$ s.t.
 $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 
 For a problem to be classified as VRP, it should fulfil at least the above
@@ -167,6 +167,7 @@ fulfils the following optimal condition:
 where the linear operator $Q \in \mathbb R^{n \times n}$ is a symmetric
 matrix. This can be interpreted as an objective function:
 \begin {equation}
+\label {qubo}
 f_Q(x) = \qcovec{x} Q \qvec{x} =
 \sum_{i = 1}^n \sum_{j = i}^n Q_{ij} x_i x_j
 \end {equation}
@@ -174,7 +175,8 @@ f_Q(x) = \qcovec{x} Q \qvec{x} =
 In general, QUBO is also NP hard due to the exponential scaling of the
 solution space in $\qnorm{\{0, 1\}^n} \in \mathcal{O}(2^n)$ with respect
 to the number of dimensions $n$. Many combinatorial optimisation problems have
-conversions into QUBO, not least the VRP and its variants. These conversions
+conversions into QUBO \cite{isingnp} \cite{tutqubo}, not least the VRP and its
+variants. These conversions
 are useful to establish a uniform problem description for solvers to work with,
 however in the context of quantum solvers, they are further motivated by the 
 equivalence between QUBO and the Hamiltonian of the Ising model for
@@ -219,22 +221,106 @@ obtains the equivalent QUBO formulation for free, and hence optimising for
 the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
-With this knowledge, one can formulate the VRP as follows.
-% TODO
+With this knowledge, one can formulate the VRP as follows. We define the
+set of constraints that a valid solution must adhere to:
+\begin {itemize}
+\item[\textbf{once}] Each customer $v_i$ in a route $r_j$ is visited exactly
+	once.
+\item[\textbf{step}] For each time step, each vehicle is either at a customer
+	node $v_i$ or at the depot $v_0$.
+\end {itemize}
+
+Additional constraints may be specified depending on the problem variant.
+For CVRP the following is useful:
+\begin {itemize}
+\item[\textbf{cap}] All routes $\{r_i\}$ respect the maximum capacity
+	$m \in \mathbb R$ of a vehicle.
+\end {itemize}
+
+Note that for simplicity, we do not distinguish between vehicles and routes,
+under the premise that each route will be navigated by exactly one vehicle.
+Since in CVRP the routes are optimised for the vehicle capacity $m$, assuming
+homogenous vehicles this simplification is unlikely to affect the final
+result. Furthermore, some CVRP variants consider multiple depot nodes. This
+variant will also not be further investigated here.
+
+Let $x_{t, i}^r \in \{0, \; 1\}$ denote the assignment of the customer node
+$v_i$ to be visited along route $r \in \mathbb N_0$ at time step
+$t \in \mathbb N_0$.
+The first two constraints can then be described mathematically as follows:
+
+\begin {equation}
+H_{\text{once}} = \sum_i \; (1 - \sum_{r, \; t} x_{t, i}^r)^2
+\end {equation}
+
+\begin {equation}
+H_{\text{step}} = \sum_{r, \; t} \; (1 - \sum_i x_{t, i}^r)^2
+\end {equation}
+
+The idea is to coerce each squared term to evaluate to zero, implying each
+inner summation should evaluate to one. To illustrate, consider for example
+$H_{\text{step}}$ which encodes the constraint \textbf{step}. We sum over all
+node indices $i$, such that for a given step $t$ along the route $r$,
+precisely one customer node or the depot is assigned to the schedule. In
+general, once a constraint is violated it follows that the calculation yields
+a positive result, after which penalty values may be applied accordingly.
+
+Encoding the constraint \textbf{cap} is a little more involved:
+\begin {equation}
+H_{\text{cap}} = \sum_r \big( m - (\Delta + \sum_{t, \; i} d_i x_{t, i}^r) \big) ^2
+\end {equation}
+where $d_i$ represents the demand score of node $v_i$ and
+\begin {equation}
+\Delta = \sum_{d=0}^{\lceil \log_2 1+m \rceil - 1} 2^d \; a_d^r
+\end {equation}
+
+The additional term $\Delta$ in $H_{\text{cap}}$ is a result of this constraint
+being somewhat more relaxed, in that any value
+$\sum_{t, \; i} d_i x_{t, i}^r \leq m$
+for the loading of the vehicle is acceptable, instead of a hard requirement.
+This is conveyed through the auxiliary variables $a_d^r \in \{0, \; 1\}$,
+which may be freely set to perfectly zero out unused vehicle capacity for the
+route $r$. 
+Naturally not fully loading the vehicle and forcing an early return to depot
+may be suboptimal in many cases, however the edge cost metric represented by
+the objective function $H_c$ is sufficient to deter this.
+
+Coupled with the objective function given by $H_c$, the complete CVRP
+Hamiltonian is the linear combination of these constraints:
+\begin {equation}
+\label {hcvrp}
+H_p = H_c + p_1 H_{\text{once}} + p_2 H_{\text{step}} + p_3 H_{\text{cap}}
+\end {equation}
+Here $p_k \in \mathbb R_{\ge 0}$ with $k \in \{1, 2, 3\}$ corresponds to a
+large penalty value that serves to mark a potential solution as undesirable,
+in the case that one or more of the corresponding constraints are violated.
+The exact values of $p_k$ are dependent on the problem instance and must be
+heuristically determined and optimised.
+
+Crucially, this description of the CVRP is only one of several possible
+formulations. Extensive research has been conducted into determining the most
+optimal description that benefits solution quality as well as speed of
+convergence. In particular, the formulation in \eqref{hcvrp} turns out not to
+be suitable with regard to current limitations of NISQ era processors, due to
+the large amount of free binary variables and comparative lack of computing
+resources available to account for them all. The CVRP must as a result be
+split into two distinct phases, a clustering phase that groups customer nodes
+together similar to the knapsack problem, and a routing phase to determine the
+ideal route in each of these clusters as in the TSP.
 
 \section {Quantum Algorithms}
 Traditionally, quantum solvers for combinatorial optimisation problems have
 been implemented using the quantum annealing approach. This method relies on
 the theory of adiabatic quantum computation to evolve a prepared system state
-gradually towards the problem Hamiltonian. With sufficiently slow evolution,
-the system is guaranteed to arrive in the ground state by the adiabatic
-theorem.
+of the Hamiltonian $H_0$ gradually towards the problem Hamiltonian $H_p$. With
+sufficiently slow evolution, the system is guaranteed to arrive in the ground
+state by the adiabatic theorem.
 
 More precisely, the system evolves according to
 \begin {equation}
-H(t) = (1 - \frac{t}{T}) \cdot H_0 + \frac{t}{T} \cdot H_p
+H(t) = \left(1 - \frac{t}{T}\right) \cdot H_0 + \frac{t}{T} \cdot H_p
 \end {equation}
-with $0 \leq t \leq T$, where $T$ is bound by
+with $0 \leq t \leq T$, where the total algorithm runtime $T$ is bound by
 $T \in \mathcal{O}(\frac{1}{g^2})$. Here $g$ denotes the spectral gap of $H$,
 the minimal energy difference between the ground state and first excited
 state throughout the evolution. Consequently, Hamiltonians with narrower
@@ -353,7 +439,9 @@ may result in certain bitstring outcomes being sampled too infrequently if at
 all while evaluating the objective function, leading to inaccuracies.
 % TODO
 
-The objective function in the minimal encoding has the form:
+Substituting \eqref{prob} into \eqref{qubo} and incorporating the
+probabilistic component, we obtain the following objective function for the
+minimal encoding:
 \begin {align}
 C_{min}(\theta)
 &= \sum_{i \neq j}^{n_c} Q_{ij} \qnorm{b_i}^2 \qnorm{b_j}^2

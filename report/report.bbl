@@ -21,6 +21,14 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{isingnp}
+A.~Lucas, ``Ising formulations of many {NP} problems,'' \emph{Frontiers in
+  Physics}, 2014.
+
+\bibitem{tutqubo}
+F.~Glover, G.~Kochenberger, R.~Hennig, and Y.~Du, ``A tutorial on formulating
+  and using {QUBO} models,'' \emph{Ann Oper Res}, 2022.
+
 \bibitem{effbinopt}
 B.~Tan, M.-A. Lemonde, S.~Thanasilp, J.~Tangpanitanon, and D.~G. Angelakis,
   ``Qubit-efficient encoding schemes for binary optimisation problems,''
