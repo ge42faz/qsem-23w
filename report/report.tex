@@ -62,10 +62,11 @@ quality is not heavily impacted.
 % i.	introduction
 % ii.	vrp
 % iii.	qubo
-% iv.	encoding schemes
-% v.	discussion
-% vi.	conclusion
-% vii.	appendix
+% iv.	algorithms
+% v.	encoding schemes
+% vi.	discussion
+% vii.	conclusion
+% viii.	appendix
 
 \section {Introduction}
 The Vehicle Routing Problem (VRP) is concerned with finding optimal routes
@@ -219,6 +220,53 @@ the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
 With this knowledge, one can formulate the VRP as follows.
+% TODO
+
+\section {Quantum Algorithms}
+Traditionally, quantum solvers for combinatorial optimisation problems have
+been implemented using the quantum annealing approach. This method relies on
+the theory of adiabatic quantum computation to evolve a prepared system state
+gradually towards the problem Hamiltonian. With sufficiently slow evolution,
+the system is guaranteed to arrive in the ground state by the adiabatic
+theorem.
+
+More precisely, the system evolves according to
+\begin {equation}
+H(t) = (1 - \frac{t}{T}) \cdot H_0 + \frac{t}{T} \cdot H_p
+\end {equation}
+with $0 \leq t \leq T$, where $T$ is bound by
+$T \in \mathcal{O}(\frac{1}{g^2})$. Here $g$ denotes the spectral gap of $H$,
+the minimal energy difference between the ground state and first excited
+state throughout the evolution. Consequently, Hamiltonians with narrower
+spectral gaps have to be evolved more slowly for the sake of precision.
+
+On the other hand, the more common circuit model processor operates based on a
+series of quantum gates connected in a circuit in order to manipulate the
+quantum state to a desired outcome. This principle of operation is founded
+upon the discretised solution to the Schrödinger equation for negligibly small
+time intervals:
+\begin {equation}
+i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} = H \qvec{\psi(t)}
+\Longleftrightarrow
+U(t) = e^{\frac{-i}{\hbar}Ht}
+\end {equation}
+where $U$ denotes the unitary time evolution operator. This unitary can be
+decomposed into several building blocks termed quantum gates, which are
+implemented in the hardware and operate on a small subset of qubits. The
+quantum circuit thus realises the Hamiltonian.
+
+The advances in circuit model quantum processors that have brought
+about the NISQ era have offered an alternative approach to tackle optimisation
+problems, namely that of supplementing a quantum algorithm with classically
+tuned parameters to iteratively arrive at a good approximation of the ground
+state, known as variational algorithms. NISQ era processors are characterised
+by a primary limitation of restricted circuit depth due to their sensitivity
+to noise as well as the inability to correct the faults introduced. By
+offloading some of the computation to a classical algorithm and proceeding
+iteratively, this limitation can be worked around to a degree that allows
+one to obtain reasonable estimations of the ideal solutions to optimisation
+problems.
+
 
 \section {Encoding Approaches}
 We assume the use of a conventional NISQ processor to tackle a VRP involving
@@ -325,7 +373,7 @@ $P_i^1 = \qouter{1}{1} \otimes P_i$.
 \bibliographystyle {IEEEtran}
 \bibliography {report}
 
-\section {Appendix}
+\appendix
 
 \end {multicols}
 
