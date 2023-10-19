@@ -246,9 +246,9 @@ C_{cpl}(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
 
 
 The advantage of the complete encoding is its ability to capture all
-possible correlations between classical variables. This however comes at
-the cost of requiring computational resources that scale proportionally
-to the problem size, as each binary classical variable is mapped to a
+possible correlations between classical variables. This however sacrifices
+scalability, requiring computational resources that scale proportionally
+to the problem size as each binary classical variable is mapped to a
 single qubit, hence $n_q = n_c$. As a result, feasible applications of the
 complete encoding are limited to toy examples. Even as quantum hardware
 becomes more powerful, it is prudent to examine encoding schemes that can more
@@ -282,7 +282,7 @@ $x$ for a given $\theta$ is expressed by:
 \end {equation}
 
 As an example, consider $n_c = 4$, $n_r = 2$. The normalised system
-state representing a particular bitstring $\vec{x}^* = (1, 1, 1, 0)^\dag$
+state representing a particular bitstring $x^* = (1, 1, 1, 0)^\dag$
 would be $\qvec{\psi^*} = \frac{1}{2}(\qvec{1}\qvec{00} + \qvec{1}\qvec{01}
 + \qvec{1}\qvec{10} + \qvec{0}\qvec{11})$.
 
@@ -298,6 +298,13 @@ statistically independent classical variables, ie. those s.t.
 $\forall i \; j. \; \Pr \; (x_i \land x_j) = \Pr x_i \Pr x_j$, which tend
 not to be the case for highly complex and intertwined problems as in the VRP.
 
+Furthermore, the number of trials required to obtain a solution of sufficient
+quality is necessarily increased. Depending on the exact problem
+configuration, particularly small coefficient values in the quantum state
+may result in certain bitstring outcomes being sampled too infrequently if at
+all while evaluating the objective function, leading to inaccuracies.
+% TODO
+
 The objective function in the minimal encoding has the form:
 \begin {align}
 C_{min}(\theta)
@@ -309,6 +316,7 @@ C_{min}(\theta)
 \end {align}
 expressed as projectors $P_i = \qouter{\phi_i}{\phi_i}$ and
 $P_i^1 = \qouter{1}{1} \otimes P_i$.
+% TODO linearity
 
 \section {Discussion}
 
