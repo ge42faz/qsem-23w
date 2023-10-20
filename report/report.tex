@@ -5,6 +5,7 @@
 \usepackage {multicol}
 \usepackage [a4paper, total={16cm, 24cm}]{geometry}
 \usepackage {titlesec}
+\usepackage {enumitem}
 
 \renewcommand {\thesection} {\Roman{section}} 
 \renewcommand {\thesubsection} {\thesection.\Roman{subsection}}
@@ -131,7 +132,14 @@ value summed up across the entire journey is to be optimised, ie. made as
 small as possible. This cost may be set based on travel time, distance,
 or other concerns with economic consequences.
 
-Vehicles may only travel across edges. Furthermore, each graph contains a
+Vehicles may only travel across edges. For simplicity, one can assume $G$ is
+a complete graph. Those edges directly connecting two nodes $(i, j) \in E$
+that are absent in reality can be labelled with an edge cost
+$c_{ij} = c_{i n_1} + ... + c_{n_m j}$ corresponding to
+the most efficient path available between them. This preprocessing step does
+not necessarily complicate matters, and classical algorithms exist for all
+pairs shortest path with known polynomial runtime performance, such as
+the Dijkstra algorithm. Furthermore, each graph contains a
 designated node $v_0 \in V$ known as the depot. Valid routes must always
 begin and end at the depot. A valid route is then a tuple
 $r = (v_n, v_{n+1}, ..., v_m)$ s.t.
@@ -240,7 +248,7 @@ For CVRP the following is useful:
 Note that for simplicity, we do not distinguish between vehicles and routes,
 under the premise that each route will be navigated by exactly one vehicle.
 Since in CVRP the routes are optimised for the vehicle capacity $m$, assuming
-homogenous vehicles this simplification is unlikely to affect the final
+homogeneous vehicles this simplification is unlikely to affect the final
 result. Furthermore, some CVRP variants consider multiple depot nodes. This
 variant will also not be further investigated here.
 
@@ -287,6 +295,10 @@ Naturally not fully loading the vehicle and forcing an early return to depot
 may be suboptimal in many cases, however the edge cost metric represented by
 the objective function $H_c$ is sufficient to deter this.
 
+\begin {equation}
+H_c = \sum_{i, \; j, \; t, \; r} c_{ij} \; x_{i, t}^r \; x_{j, t+1}^r
+\end {equation}
+
 Coupled with the objective function given by $H_c$, the complete CVRP
 Hamiltonian is the linear combination of these constraints:
 \begin {equation}
@@ -309,6 +321,52 @@ resources available to account for them all. The CVRP must as a result be
 split into two distinct phases, a clustering phase that groups customer nodes
 together similar to the knapsack problem, and a routing phase to determine the
 ideal route in each of these clusters as in the TSP.
+
+The clustering phase aims to discern routes by grouping nodes together in such
+a way that \textbf{once} and \textbf{cap} hold true for each cluster.
+Furthermore, intuition suggests neighbouring nodes should not be split apart
+but rather be assigned to the same cluster to minimise edge costs.
+\begin {enumerate}[label=\textbf{cluster}, align=left]
+\item The cumulative edge cost $c_ij$ between all pairs of
+	nodes $(i, j)$ within a cluster should be minimal.
+\end {enumerate}
+
+This results in the following problem Hamiltonian:
+\begin {equation}
+H_{\text{kn}} = q_1 H_{\text{once}} + q_2 H_{\text{cap}}
++ q_3 H_{\text{cluster}} 
+\end {equation}
+with penalty values $q_i$, where $H_{\text{cluster}}$ is defined as:
+\begin {equation}
+H_{\text{cluster}} = \sum_r \sum_{i, \; j} c_{ij} \; x_i^r \; x_j^r
+\end {equation}
+and $x_i^r = \sum_t x_{i, t}^k$.
+
+It is worth noting that the penalty value $q_3$ should be set more modestly in
+comparison to the others, given that \textbf{cluster} is not a hard constraint
+but rather a metric measuring the optimality of clusters. It should always be
+more appealing to relax \textbf{cluster} over violating $\textbf{once}$ or
+$\textbf{cap}$.
+
+Unfortunately, quantum solvers have been shown to perform relatively poorly 
+when applied to the multiple knapsack problem (refs), hence at present the
+clustering phase should be deferred to a classical algorithm as suggested
+in (refs).
+
+The routing phase takes the partitioned clusters and determines the optimal
+route for each cluster locally. The problem is thus reduced to the TSP, which
+conveniently has a QUBO formulation given in \cite{isingnp} as follows
+\begin {equation}
+H_{\text{tsp}} = q_1 H_{\text{once}} + q_2 H_{\text{step}} + q_3 H_c
+\end {equation}
+with the exception that, as we have broken up the problem and there is locally
+only one route to optimise, in all terms we do not sum over $r$.
+
+Overall, the TSP requires $\mathcal{O}(\qnorm{V}^2)$ binary variables to account
+for all possible nodes and all possible time steps. Here \cite{isingnp} suggests
+a resource optimisation saving to $(\qnorm{V} - 1)^2$ variables by fixing the
+start node to be the depot $v_0$.
+
 
 \section {Quantum Algorithms}
 Traditionally, quantum solvers for combinatorial optimisation problems have
