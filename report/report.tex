@@ -218,10 +218,13 @@ lattice site.
 
 Notably, the Ising model is typically simplified to exclude the transverse
 field, resulting in a classical Hamiltonian where the constituent terms
-commute ie. a diagonal operator in the $Z$ basis. This means the
-ground state is described by a basis vector $\qvec{\phi}$ with
-$\phi \in \{0, 1\}^n$, allowing for simple measurement to obtain a bit
-string solution.
+commute ie. a diagonal operator in the $Z$ basis.
+\begin {equation}
+H = \sum_{z \in \{0, 1\}^n} E_z \qouter{z}{z}
+\end {equation}
+This means the ground state $E_0$ is described by a corresponding eigenvector
+$\qvec{\phi}$ with $\phi \in \{0, 1\}^n$, allowing for simple measurement to
+obtain an eigenvalue mappable to a specific bit string solution.
 
 Through the reversible transformation $\sigma \mapsto 2x - 1$, where
 $x \in \{0, 1\}$ s.t. $-1 \mapsto 0$ and $1 \mapsto 1$, one
@@ -396,6 +399,7 @@ i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} = H \qvec{\psi(t)}
 \Longleftrightarrow
 U(t) = e^{\frac{-i}{\hbar}Ht}
 \end {equation}
+
 where $U$ denotes the unitary time evolution operator. This unitary can be
 decomposed into several building blocks termed quantum gates, which are
 implemented in the hardware and operate on a small subset of qubits. The
