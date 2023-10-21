@@ -209,6 +209,7 @@ where $\mu$ is the magnetic moment.
 Replacing $\sigma$ with the Pauli operators yields the
 quantum mechanical description:
 \begin {equation}
+\label {isingq}
 H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i^z \sigma_j^z
 - \mu \sum_{i} h_i^z \sigma_i^z - \mu \sum_{i} h_i^x \sigma_i^x
 \end {equation}
@@ -220,6 +221,7 @@ Notably, the Ising model is typically simplified to exclude the transverse
 field, resulting in a classical Hamiltonian where the constituent terms
 commute ie. a diagonal operator in the $Z$ basis.
 \begin {equation}
+\label {hdiag}
 H = \sum_{z \in \{0, 1\}^n} E_z \qouter{z}{z}
 \end {equation}
 This means the ground state $E_0$ is described by a corresponding eigenvector
@@ -376,8 +378,9 @@ Traditionally, quantum solvers for combinatorial optimisation problems have
 been implemented using the quantum annealing approach. This method relies on
 the theory of adiabatic quantum computation to evolve a prepared system state
 of the Hamiltonian $H_0$ gradually towards the problem Hamiltonian $H_p$. With
-sufficiently slow evolution, the system is guaranteed to arrive in the ground
-state by the adiabatic theorem.
+sufficiently slow evolution and noncommuting Hamiltonians $[H_0, H_p] \neq 0$,
+the system is guaranteed to arrive in the desired ground state of the problem
+by the adiabatic theorem.
 
 More precisely, the system evolves according to
 \begin {equation}
@@ -392,18 +395,32 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 On the other hand, the more common circuit model processor operates based on a
 series of quantum gates connected in a circuit in order to manipulate the
 quantum state to a desired outcome. This principle of operation is founded
-upon the discretised solution to the Schrödinger equation for negligibly small
-time intervals:
+upon the solution to the time dependent Schrödinger equation for time
+invariant Hamiltonians:
 \begin {equation}
 i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} = H \qvec{\psi(t)}
 \Longleftrightarrow
 U(t) = e^{\frac{-i}{\hbar}Ht}
 \end {equation}
-
 where $U$ denotes the unitary time evolution operator. This unitary can be
 decomposed into several building blocks termed quantum gates, which are
 implemented in the hardware and operate on a small subset of qubits. The
 quantum circuit thus realises the Hamiltonian.
+
+For complex Hamiltonians of the form $H = \sum_k H_k$, the following limit
+equation provides a key insight for
+$A, B \in \mathbb C^{m \times m}, m \in \mathbb N$:
+\begin {equation}
+e^{A+B} = \lim_{n \rightarrow \infty}
+\big(e^{\frac{A}{n}} \cdot e^{\frac{B}{n}}\big)^n
+\end {equation}
+
+As a result, the time evolution can be approximated as:
+\begin {equation}
+\label {lieprod}
+U(t, n) = \prod_{i \le n} \prod_k \; e^{\frac{-i H_k t}{n}}
+\end {equation}
+ie. a series of smaller gate unitaries that may be repeated ad infinitum.
 
 The advances in circuit model quantum processors that have brought
 about the NISQ era have offered an alternative approach to tackle optimisation
@@ -411,12 +428,55 @@ problems, namely that of supplementing a quantum algorithm with classically
 tuned parameters to iteratively arrive at a good approximation of the ground
 state, known as variational algorithms. NISQ era processors are characterised
 by a primary limitation of restricted circuit depth due to their sensitivity
-to noise as well as the inability to correct the faults introduced. By
-offloading some of the computation to a classical algorithm and proceeding
-iteratively, this limitation can be worked around to a degree that allows
-one to obtain reasonable estimations of the ideal solutions to optimisation
-problems.
+to noise as well as the inability to correct the faults introduced. These
+practical limitations prevent the substitution high values of $n$ in
+\eqref{lieprod}. However, by offloading some of the computation to a classical
+algorithm and proceeding with iterative refinement, this limitation can be
+worked around to a degree that allows one to obtain reasonable estimations of
+the ideal solutions to optimisation problems.
 
+Those variational approaches specifically intended for combinatorial
+optimisation are given the name quantum approximate optimisation algorithm
+(QAOA). Following the recipe in \eqref{lieprod}, a circuit is constructed out
+of alternating operators $H_f$ and $H_x$, where the former represents the
+objective function and the latter is termed a mixer Hamiltonian.
+\begin {equation}
+\label {qaoa}
+\qvec{\psi(\beta, \gamma)} = \prod_i e^{-i \beta_i H_x} e^{-i \gamma_i H_f}
+\; \qvec{+}^{\otimes n}
+\end {equation}
+where $\qvec{+}^{\otimes n}$ is the uniform superposition obtained through
+the Hadamard transform of the initial ground state, so as to begin optimising
+from a neutral position.
+
+The series of unitary evolutions are commonly implemented in the gate model as
+qubit rotation operator arrays. The parameters $\beta_i$ and $\gamma_i$
+represent angle values for these rotations $H_x$ and $H_f$ respectively, which
+can be interpreted as the discretised duration of time the system spends under
+a particular unitary evolution.
+
+Since $H_f$ is diagonal w.r.t. $Z$ as in \eqref{hdiag}, we typically choose
+the noncommuting mixer $H_x = \sum_k \sigma^x_k$, also known as the transverse
+field mixer (cf. \eqref{isingq}). However, this choice is by no means
+inconsequential. Further studies have yielded more optimal choices for $H_x$
+and the initial system state tailored to the problem at hand.
+
+In any case, the primary purpose of the mixer is to allow the system to
+escape undesirable local eigenstates should they be assumed in the course of
+running the algorithm. For this, the noncommutative relation between the two
+operators ensures that their individual eigenstates do not coincide.
+From a macro standpoint, the mixer acts to dissuade convergence towards local
+minima by effectively reshuffling the state to an extent.
+
+After each pass of the circuit, the system state should attain significant
+overlap to the desirable eigenstate. The optimised result is read out with
+high probability through a measurement and a classical optimiser attempts to
+refine the angle parameters $\beta_i, \gamma_i$. This procedure is then
+repeated until a sufficiently good solution is found. By the adiabatic theorem
+and \eqref{lieprod}, arbitrarily precise solutions are theoretically possible.
+In practice studies have highlighted certain limitations, for example
+correlating solution quality inversely with the ratio of constraints to
+variables in a problem.
 
 \section {Encoding Approaches}
 We assume the use of a conventional NISQ processor to tackle a VRP involving
@@ -434,12 +494,13 @@ ${x \in \{0, \; 1\}^{n_c}}$ with probability $\qnorm{\alpha_x}^2$, where
 $\alpha$ is parametrised by a set of angles $\theta$. In variational
 algorithms, $\theta$ are heuristically determined values that serve to tune
 arrays of rotation unitaries, which are adjusted after each pass to attain
-the optimised state $\qvec{\psi^*} = U(\theta^*)\qvec{\psi_0}$.
+the optimised state $\qvec{\psi^*} = U(\theta^*)\qvec{\psi_0}$
+(cf. \eqref{qaoa}).
 
 The QUBO objective function in the complete encoding is described by the
 expectation of the equivalent Ising Hamiltonian:
 \begin {equation}
-C_{cpl}(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
+C_{\text{cpl}}(\theta) = \qeval{H} = \qcovec{\psi(\theta)} H \qvec{\psi(\theta)}
 \end {equation}
 
 
@@ -507,7 +568,7 @@ Substituting \eqref{prob} into \eqref{qubo} and incorporating the
 probabilistic component, we obtain the following objective function for the
 minimal encoding:
 \begin {align}
-C_{min}(\theta)
+C_{\text{min}}(\theta)
 &= \sum_{i \neq j}^{n_c} Q_{ij} \qnorm{b_i}^2 \qnorm{b_j}^2
 + \sum_{i=1}^{n_c} Q_{ii} \qnorm{b_i}^2 \\
 &= \sum_{i \neq j}^{n_c} Q_{ij}
