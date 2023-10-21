@@ -6,6 +6,9 @@
 \usepackage [a4paper, total={16cm, 24cm}]{geometry}
 \usepackage {titlesec}
 \usepackage {enumitem}
+\usepackage {graphicx}
+\usepackage {tikz}
+\usetikzlibrary {quantikz}
 
 \renewcommand {\thesection} {\Roman{section}} 
 \renewcommand {\thesubsection} {\thesection.\Roman{subsection}}
@@ -144,6 +147,22 @@ designated node $v_0 \in V$ known as the depot. Valid routes must always
 begin and end at the depot. A valid route is then a tuple
 $r = (v_n, v_{n+1}, ..., v_m)$ s.t.
 $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
+
+\begin {center}
+\begin {tikzpicture}
+\filldraw[black] (0,0) circle (2pt) node[anchor=east]{depot $v_0$};
+\draw (3, 1) circle (2pt) node[anchor=south]{$v_j$};
+\draw (4, 2) circle (2pt) node[anchor=west]{\small[4, 6]};
+\draw (4, -0.2) circle (2pt);
+\draw (0.7, 0.5) circle (2pt) node[anchor=south]{$v_i$};
+\draw (1.3, 2.5) circle (2pt) node[anchor=north]{\small$d_k{=}5$};
+\draw (-1, 1.5) circle (2pt);
+\draw (0.7, 0.5) -- node[above]{$c_{ij}$} (3, 1);
+\end {tikzpicture}
+%\caption	{
+%	An illustration of the VRP as a graph problem.
+%}
+\end {center}
 
 For a problem to be classified as VRP, it should fulfil at least the above
 minimal constraints. However, additional constraints may be imposed as
@@ -327,6 +346,10 @@ split into two distinct phases, a clustering phase that groups customer nodes
 together similar to the knapsack problem, and a routing phase to determine the
 ideal route in each of these clusters as in the TSP.
 
+\begin {tikzpicture}
+
+\end {tikzpicture}
+
 The clustering phase aims to discern routes by grouping nodes together in such
 a way that \textbf{once} and \textbf{cap} hold true for each cluster.
 Furthermore, intuition suggests neighbouring nodes should not be split apart
@@ -448,6 +471,20 @@ objective function and the latter is termed a mixer Hamiltonian.
 where $\qvec{+}^{\otimes n}$ is the uniform superposition obtained through
 the Hadamard transform of the initial ground state, so as to begin optimising
 from a neutral position.
+
+\begin {figure*}
+\centering
+\begin {quantikz}
+& \gate[3]{H^{\otimes n}} & \gate[3]{e^{-i \beta_1 H_f}}
+& \gate[3]{e^{-i \gamma_1 H_x}} & \qw \ \ldots \
+& \gate[3]{e^{-i \beta_n H_f}} & \gate[3]{e^{-i \gamma_n H_f}}
+\slice{$\psi(\beta, \gamma)$} & \gate{Z}
+\\
+&&&& \qw \ \ldots \ &&& \gate{Z}
+\\
+&&&& \qw \ \ldots \ &&& \gate{Z}
+\end {quantikz}
+\end {figure*}
 
 The series of unitary evolutions are commonly implemented in the gate model as
 qubit rotation operator arrays. The parameters $\beta_i$ and $\gamma_i$
@@ -577,9 +614,18 @@ C_{\text{min}}(\theta)
 \end {align}
 expressed as projectors $P_i = \qouter{\phi_i}{\phi_i}$ and
 $P_i^1 = \qouter{1}{1} \otimes P_i$.
-% TODO linearity
+
+In order to examine the feasibility of the various encoding schemes for a
+variety of problem sizes, we normalise the objective function in the following
+manner:
+\begin {equation}
+\overline{C} = \frac{C(\theta) - C^*}{\Delta C}
+\end {equation}
+$C^*$ is the best known solution, typically as found by classical algorithms.
+$\Delta C$ is the difference between $C^*$ and the worst case ie. maximal $C$.
 
 \section {Discussion}
+
 
 \section {Conclusion}
 
