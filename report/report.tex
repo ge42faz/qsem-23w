@@ -7,6 +7,7 @@
 \usepackage {titlesec}
 \usepackage {enumitem}
 \usepackage {graphicx}
+\usepackage {caption}
 \usepackage {tikz}
 \usetikzlibrary {quantikz}
 
@@ -148,6 +149,7 @@ begin and end at the depot. A valid route is then a tuple
 $r = (v_n, v_{n+1}, ..., v_m)$ s.t.
 $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 
+\vspace {0.3cm}
 \begin {center}
 \begin {tikzpicture}
 \filldraw[black] (0,0) circle (2pt) node[anchor=east]{depot $v_0$};
@@ -159,10 +161,15 @@ $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 \draw (-1, 1.5) circle (2pt);
 \draw (0.7, 0.5) -- node[above]{$c_{ij}$} (3, 1);
 \end {tikzpicture}
-%\caption	{
-%	An illustration of the VRP as a graph problem.
-%}
+\captionof {figure}	{
+	An illustration of the VRP as a graph problem. The white nodes represent
+	customers, optionally with a demand value $d_k$ or a time window interval.
+	One aims to find the most efficient route (represented by the cumulative
+	edge cost $c_ij$) that delivers to all customers and respects the problem
+	constraints.
+}
 \end {center}
+\vspace {0.3cm}
 
 For a problem to be classified as VRP, it should fulfil at least the above
 minimal constraints. However, additional constraints may be imposed as
@@ -208,6 +215,61 @@ are useful to establish a uniform problem description for solvers to work with,
 however in the context of quantum solvers, they are further motivated by the 
 equivalence between QUBO and the Hamiltonian of the Ising model for
 ferromagnetism in particle physics.
+
+\vspace {0.3cm}
+\begin {center}
+\begin {tikzpicture}
+%\draw (0, 0) circle (2pt);
+%\draw (2, 0) circle (2pt);
+%\draw (4, 0) circle (2pt);
+%;
+%\draw (1, 1) circle (2pt);
+%\draw (3, 1) circle (2pt);
+%\draw (5, 1) circle (2pt);
+%;
+%\draw (2, 2) circle (2pt);
+%\draw (4, 2) circle (2pt);
+%\draw (6, 2) circle (2pt);
+%;
+\draw[gray, dashed] (0, 0) -- (2, 0);
+\draw[gray, dashed] (4, 0) -- (2, 0);
+;
+\draw[gray, dashed] (0, 0) -- (1, 1);
+\draw[gray, dashed] (2, 0) -- (3, 1);
+\draw[gray, dashed] (4, 0) -- (5, 1);
+;
+\draw[gray, dashed] (1, 1) -- (3, 1);
+\draw[gray, dashed] (5, 1) -- (3, 1);
+;
+\draw[gray, dashed] (1, 1) -- (2, 2);
+\draw[gray, dashed] (3, 1) -- (4, 2);
+\draw[gray, dashed] (5, 1) -- (6, 2);
+;
+\draw[gray, dashed] (2, 2) -- (4, 2);
+\draw[gray, dashed] (6, 2) -- (4, 2);
+;
+\draw[->] (0, -0.2) -- (0, 0.2);
+\draw[->] (2, -0.2) -- (2, 0.2);
+\draw[->] (4, 0.2) -- (4, -0.2);
+;
+\draw[->] (1, 1.2) -- (1, 0.8);
+\draw[->] (3, 1.2) -- (3, 0.8);
+\draw[->] (5, 0.8) -- (5, 1.2);
+;
+\draw[->] (2, 1.8) -- (2, 2.2);
+\draw[->] (4, 1.8) -- (4, 2.2);
+\draw[->] (6, 1.8) -- (6, 2.2);
+;
+\end {tikzpicture}
+
+\captionof {figure}	{
+	Lattice structure depicting the Ising model in two dimensions. At each
+	lattice site $k \in \Lambda$ an arrow represents the atomic spin
+	$\sigma_k \in \{-1, 1\}$ that influences the local dipole moment. Dashed
+	lines are nearest neighbour interactions $J_{ij}$.
+}
+\end {center}
+\vspace {0.3cm}
 
 The Ising model describes a lattice structure $\Lambda$ in which each lattice
 site houses a particle. The spin of each particle is represented by a discrete
@@ -346,9 +408,34 @@ split into two distinct phases, a clustering phase that groups customer nodes
 together similar to the knapsack problem, and a routing phase to determine the
 ideal route in each of these clusters as in the TSP.
 
+\vspace {0.3cm}
+\begin {center}
 \begin {tikzpicture}
+\draw[magenta, style=dashed] (0, 0) -- (3, 1) -- (4.1, 1.2) -- (2.4, 0.1)
+-- (0, 0);
+\draw[cyan, style=dashed] (0, 0) -- (-1, 2) -- (1.3, 1.9) -- (3.5, 2.2)
+-- (0.7, 0.5) -- (0, 0);
 
+\filldraw[black] (0, 0) circle (2pt) node[anchor=south]{\small $v_0$};
+\filldraw[black] (0, 0) circle (2pt) node[anchor=north]{\small $m{=}9$};
+\filldraw[red] (3, 1) circle (2pt) node[anchor=north]{4};
+\filldraw[blue] (0.7, 0.5) circle (2pt) node[anchor=north]{1};
+\filldraw[blue] (-1, 2) circle (2pt) node[anchor=north]{2};
+\filldraw[blue] (3.5, 2.2) circle (2pt) node[anchor=north]{2};
+\filldraw[blue] (1.3, 1.9) circle (2pt) node[anchor=north]{3};
+\filldraw[red] (4.1, 1.2) circle (2pt) node[anchor=north]{3};
+\filldraw[red] (2.4, 0.1) circle (2pt) node[anchor=north]{2};
 \end {tikzpicture}
+
+\captionof {figure}	{
+	The clustering and routing phase. The clustering phase divides nodes into
+	collections (shown in blue and red) where the total demand shown under
+	each node does not exceed the vehicle capacity (in this case $m = 9$),
+	similar to the multiple knapsack problem. The routing phase involves
+	optimising each route individually for minimal edge cost as a TSP.
+}
+\end {center}
+\vspace {0.3cm}
 
 The clustering phase aims to discern routes by grouping nodes together in such
 a way that \textbf{once} and \textbf{cap} hold true for each cluster.
@@ -415,6 +502,33 @@ the minimal energy difference between the ground state and first excited
 state throughout the evolution. Consequently, Hamiltonians with narrower
 spectral gaps have to be evolved more slowly for the sake of precision.
 
+\begin {figure*}
+\centering
+\begin {quantikz}
+& \gate[3]{H^{\otimes n}} & \gate[3]{e^{-i \gamma_1 H_f}}
+& \gate[3]{e^{-i \beta_1 H_x}} & \qw \ \ldots \
+& \gate[3]{e^{-i \gamma_n H_f}} & \gate[3]{e^{-i \beta_n H_x}}
+\slice{$\rvert \psi(\beta, \gamma) \rangle$}
+& \gate[3]{\rvert z_k \rangle \langle z_k \lvert}
+\\
+&&&& \qw \ \ldots \ &&& \arrow[r] &
+\rstick{\small observe and \\ \small optimise parameters}
+\\
+&&&& \qw \ \ldots \ &&&
+\\
+&& \arrow[u] \gamma_1 & \arrow[u] \beta_1 & (\small \text{depth }n)
+& \arrow[u] \gamma_n & \arrow[u] \beta_n &&
+\end {quantikz}
+
+\caption	{
+	Sketch of the QAOA setup. The state is brought into uniform superposition
+	after which repeated alternating application of rotation operators realises
+	approximately the Hamiltonian $H = H_f + H_x$ according to \eqref{lieprod}.
+	The result is measured in the $Z$ basis and the parameters $\beta, \gamma$
+	are optimised classically for the next run.
+}
+\end {figure*}
+
 On the other hand, the more common circuit model processor operates based on a
 series of quantum gates connected in a circuit in order to manipulate the
 quantum state to a desired outcome. This principle of operation is founded
@@ -471,20 +585,6 @@ objective function and the latter is termed a mixer Hamiltonian.
 where $\qvec{+}^{\otimes n}$ is the uniform superposition obtained through
 the Hadamard transform of the initial ground state, so as to begin optimising
 from a neutral position.
-
-\begin {figure*}
-\centering
-\begin {quantikz}
-& \gate[3]{H^{\otimes n}} & \gate[3]{e^{-i \beta_1 H_f}}
-& \gate[3]{e^{-i \gamma_1 H_x}} & \qw \ \ldots \
-& \gate[3]{e^{-i \beta_n H_f}} & \gate[3]{e^{-i \gamma_n H_f}}
-\slice{$\psi(\beta, \gamma)$} & \gate{Z}
-\\
-&&&& \qw \ \ldots \ &&& \gate{Z}
-\\
-&&&& \qw \ \ldots \ &&& \gate{Z}
-\end {quantikz}
-\end {figure*}
 
 The series of unitary evolutions are commonly implemented in the gate model as
 qubit rotation operator arrays. The parameters $\beta_i$ and $\gamma_i$
