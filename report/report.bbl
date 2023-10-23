@@ -29,9 +29,24 @@ A.~Lucas, ``Ising formulations of many {NP} problems,'' \emph{Frontiers in
 F.~Glover, G.~Kochenberger, R.~Hennig, and Y.~Du, ``A tutorial on formulating
   and using {QUBO} models,'' \emph{Ann Oper Res}, 2022.
 
+\bibitem{cvrpanneal}
+S.~Feld, C.~Roch, T.~Gabor, C.~Seidel, F.~Neukart, I.~Galter, W.~Mauerer, and
+  C.~Linnhoff-Popien, ``A hybrid solution method for the capacitated vehicle
+  routing problem using a quantum annealer,'' \emph{Frontiers in ICT}, 2019.
+
+\bibitem{cvrpqaoa}
+L.~Palackal, B.~Poggel, M.~Wulff, H.~Ehm, J.~M. Lorenz, and C.~B. Mendl,
+  ``Quantum-assisted solution paths for the capacitated vehicle routing
+  problem,'' 2023.
+
 \bibitem{effbinopt}
 B.~Tan, M.-A. Lemonde, S.~Thanasilp, J.~Tangpanitanon, and D.~G. Angelakis,
   ``Qubit-efficient encoding schemes for binary optimisation problems,''
   \emph{Quantum}, 2021.
+
+\bibitem{effvrp}
+I.~D. Leonidas, A.~Dukakis, B.~Tan, and D.~G. Angelakis, ``Qubit efficient
+  quantum algorithms for the vehicle routing problem on nisq processors,''
+  2023.
 
 \end{thebibliography}

@@ -2,6 +2,7 @@
 
 \usepackage {amsmath}
 \usepackage {amssymb}
+\usepackage {bbold}
 \usepackage {multicol}
 \usepackage [a4paper, total={16cm, 24cm}]{geometry}
 \usepackage {titlesec}
@@ -163,7 +164,7 @@ $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 \end {tikzpicture}
 \captionof {figure}	{
 	An illustration of the VRP as a graph problem. The white nodes represent
-	customers, optionally with a demand value $d_k$ or a time window interval.
+	customers, with an optional demand value $d_k$ or a time window interval.
 	One aims to find the most efficient route (represented by the cumulative
 	edge cost $c_ij$) that delivers to all customers and respects the problem
 	constraints.
@@ -403,8 +404,13 @@ optimal description that benefits solution quality as well as speed of
 convergence. In particular, the formulation in \eqref{hcvrp} turns out not to
 be suitable with regard to current limitations of NISQ era processors, due to
 the large amount of free binary variables and comparative lack of computing
-resources available to account for them all. The CVRP must as a result be
-split into two distinct phases, a clustering phase that groups customer nodes
+resources available to account for them all.
+
+As it stands, the number of binary variables needed is in the order of
+$\mathcal{O}(\qnorm{V}^3)$, considering the number of customer nodes, time
+steps required, and routes or vehicles. One solution employed by
+\cite{cvrpanneal} and \cite{cvrpqaoa} involves splitting the problem
+into two distinct phases, a clustering phase that groups customer nodes
 together similar to the knapsack problem, and a routing phase to determine the
 ideal route in each of these clusters as in the TSP.
 
@@ -512,7 +518,7 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 & \gate[3]{\rvert z_k \rangle \langle z_k \lvert}
 \\
 &&&& \qw \ \ldots \ &&& \arrow[r] &
-\rstick{\small observe and \\ \small optimise parameters}
+\rstick{\small observe and \\ \small optimise \\ parameters}
 \\
 &&&& \qw \ \ldots \ &&&
 \\
@@ -527,6 +533,7 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 	The result is measured in the $Z$ basis and the parameters $\beta, \gamma$
 	are optimised classically for the next run.
 }
+\label {qaoacirc}
 \end {figure*}
 
 On the other hand, the more common circuit model processor operates based on a
@@ -574,9 +581,10 @@ the ideal solutions to optimisation problems.
 
 Those variational approaches specifically intended for combinatorial
 optimisation are given the name quantum approximate optimisation algorithm
-(QAOA). Following the recipe in \eqref{lieprod}, a circuit is constructed out
-of alternating operators $H_f$ and $H_x$, where the former represents the
-objective function and the latter is termed a mixer Hamiltonian.
+(QAOA). Following the recipe in \eqref{lieprod}, a circuit as in Fig.
+\ref{qaoacirc}) is constructed out of alternating operators $H_f$ and $H_x$,
+where the former represents the objective function and the latter is termed
+a mixer Hamiltonian.
 \begin {equation}
 \label {qaoa}
 \qvec{\psi(\beta, \gamma)} = \prod_i e^{-i \beta_i H_x} e^{-i \gamma_i H_f}
@@ -693,6 +701,12 @@ expense of a more limited expressiveness in the quantum state. As seen in
 statistically independent classical variables, ie. those s.t.
 $\forall i \; j. \; \Pr \; (x_i \land x_j) = \Pr x_i \Pr x_j$, which tend
 not to be the case for highly complex and intertwined problems as in the VRP.
+To illustrate, consider two nodes that both have a very high edge cost
+connecting them to other nodes and the depot, but a negligible edge cost
+between themselves. It is much more likely for these nodes to be visited
+sequentially along a route, and hence the probability of visiting any one of
+these nodes is greatly affected by whether its neighbour was visited at the
+previous time step.
 
 Furthermore, the number of trials required to obtain a solution of sufficient
 quality is necessarily increased. Depending on the exact problem
@@ -715,6 +729,41 @@ C_{\text{min}}(\theta)
 expressed as projectors $P_i = \qouter{\phi_i}{\phi_i}$ and
 $P_i^1 = \qouter{1}{1} \otimes P_i$.
 
+Additionally, the minimal encoding scheme proposed here was originally
+conceived for solving graph maximum cut problems \cite{effbinopt}. To this
+end, the scheme can be extended to capture two body correlations, as opposed
+to simply statistically independent variables as mentioned in this report.
+This proves useful in the context of maximum cut, since one is interested in
+the inclusion or exclusion of edges that connect two nodes rather than the
+nodes themselves. 
+
+The two body correlations were encoded as follows:
+\begin {equation}
+\begin {aligned}
+\qvec{\psi(\theta)} = \sum_{i, \; j} \; \beta_{ij} \big(\alpha_{ij}^0 \qvec{00}
++ \alpha_{ij}^1 \qvec{01} \\ + \; \alpha_{ij}^2 \qvec{10}
++ \alpha_{ij}^3 \qvec{11} \big) \; \qvec{\phi_{ij}}
+\end {aligned}
+\end {equation}
+While the overall scheme is similar, in this case the auxiliary is a $n_a = 2$
+wide register which represents the values of pairs of binary variables
+specified by the main register.
+
+Reference \cite{effbinopt} further generalises the construction to encompass
+many body correlations by way of subdividing binary variables into disjoint
+sets and expanding the encoding accordingly, however with the drawbacks
+of increased resource consumption and an increasingly difficult to compute
+cost metric. The total number of qubits required is then given by:
+\begin {equation}
+n_q = n_a + \log_2 \frac{n_c}{n_a}
+\end {equation}
+This results in $n_a$ groups of variables. The limiting case $n_a = n_c$ gives
+the complete encoding. It remains to be seen whether VRP can better make use
+of this, though this is unlikely given the interconnected nature of the problem.
+
+What follows in the next section are experimental results from various
+research papers analysing VRP solutions obtained through quantum algorithms on
+NISQ era devices.
 In order to examine the feasibility of the various encoding schemes for a
 variety of problem sizes, we normalise the objective function in the following
 manner:
@@ -725,9 +774,108 @@ $C^*$ is the best known solution, typically as found by classical algorithms.
 $\Delta C$ is the difference between $C^*$ and the worst case ie. maximal $C$.
 
 \section {Discussion}
+Reference \cite{effvrp} claims to have seen ideal convergence behaviour for
+VRPTW with the minimal encoding for small scale problems, on occasion
+surpassing that which was achieved when employing the traditional complete
+encoding.
+
+\begin {center}
+\includegraphics [width=\linewidth]{2fig}
+\captionof {figure}	{
+	Figure taken from \cite{effvrp}. Performance comparison between the
+	complete encoding (a, top) and the minimal encoding (c, bottom) with
+	respect to the solution improvement after several optimisation runs.
+	$n_{\text{shots}}$ represents the curve obtained by sampling the state
+	this many times. The limiting case is also shown. One observes markedly
+	increased variance and slower convergence for the minimal encoding.
+}
+\label {2fig}
+\end {center}
+
+Figure \ref{2fig} depicts
+how the optimiser iterations influenced the normalised cost compared to the
+complete encoding for a VRP with $n_c = 16$. One observes the
+expected reduction in solution quality using the minimal encoding, showing
+more variance even with increased optimisation runs and requiring substantially
+more sampling trials to get costs down.
+
+Meanwhile, Figure \ref{4fig} shows the cumulative distribution of solutions
+obtained as a function of the normalised cost (labelled $C_{\text{norm}}$) on
+several devices, plotted in colour. The black curve represents the distribution
+of all possible solutions, or alternatively $4 \cdot 10^8$ randomly generated
+solutions, where the former becomes too expensive to compute. A more extreme
+gradient nearer the vertical axis, where the normalised cost is kept at a
+minimum reflects well on the overall procedure, as this means a higher
+percentage of generated solutions are close to ideal.
+
+\begin {figure*}[!ht]
+\includegraphics {4fig}
+\caption	{
+	Figure taken from \cite{effvrp}. The left column (a, d) shows optimisation
+	runs with the minimal encoding for increasing problem sizes. Insufficient
+	sampling led to convergence not being attained for $n_c = 3964$ classical
+	variables. The right column (b, e) reflects the cumulative distribution of
+	solutions obtained with the minimal encoding on various NISQ devices,
+	compared with $4 \cdot 10^8$ randomly generated solutions charted in black.
+}
+\label {4fig}
+\end {figure*}
+
+Tests have also been conducted for larger problem instances that show
+convergent behaviour, although sufficient iterations were not performed in
+order for the convergence to manifest completely. This can be seen in the
+figure, which for $n_c = 3964$ classical variables was still a distance away
+from returning optimal solutions, limited by the relatively modest count of
+10000 sampling trials compared to $n_q = 13, 2^{n_q} = 8192$ different
+eigenstates. The authors of \cite{effvrp} assumed $p = 0.5$ for unsampled
+variables and pointed to this as a reason for the suboptimal convergence
+with increasing optimisation runs.
+
+In comparison, \cite{cvrpqaoa} had notably worse results for the two phase
+CVRP even for small problem sizes, using the complete encoding and QAOA to
+optimise the routing phase as a TSP. However, they achieved significantly
+better performance using a related variational algorithm termed variational
+quantum eigensolver (VQE).
+
+VQE normally sees use in similar optimisation problems in fields such as
+quantum chemistry, again with the aim of finding the ground state of some
+problem Hamiltonian. Unlike QAOA, VQE refines the initial state classically,
+and formulates the problem Hamiltonian as a Pauli string $H = \bigotimes_i w_i
+\cdot \{\mathbb{1}_i, \sigma^x_i, \sigma^y_i, \sigma^z_i\}$, and measures the
+result in this manner as well.
+
+In any case, the authors of \cite{cvrpqaoa} pointed to the problem formulation
+as a factor that potentially inhibited the QAOA, and suggested an alternate
+encoding might yield improved performance. Their version of the TSP
+additionally considered infeasible paths, ie. the problem was solved on an
+incomplete graph, and solutions connecting two nodes for which no direct edge
+between them existed were flagged invalid.
+
+Due to this, a large percentage of proposed solutions were of little value
+and subsequently discarded. The researchers observed improvements in the
+feasibility of returned solutions only as the approximated ground state was
+within 97\% percent of the best known solution.
 
 
 \section {Conclusion}
+The report summarises some recent research into using quantum algorithms 
+feasible on current NISQ era processors to derive approximate solutions to the
+NP hard vehicle routing problem and its variants. Particular attention has been
+drawn to the ways in which VRP can be cleverly formulated and encoded in order
+to reduce the amount of computing resources required while still maintaining
+an adequate solution quality.
+
+The minimal encoding first described in \cite{effbinopt} uses logarithmically
+as many qubits as classical binary variables in the problem, at the expense of
+sacrificing the ability to encode correlations within variables. It has been
+shown \cite{effvrp} to perform comparably to conventional encodings on both
+small and large scales for certain problem formulations.
+
+Acknowledgements. This report was compiled as part of a quantum seminar held
+at Technische Universität München during the 2023 winter semester. I would
+like to thank Prof. Christian B. Mendl and my advisor Keefe Huang of the 
+quantum research department at the university for their support in making
+this project possible.
 
 \bibliographystyle {IEEEtran}
 \bibliography {report}
