@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  23 OCT 2023 15:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  24 OCT 2023 12:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -243,6 +243,30 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@count@id=\count288
 \enitdp@description=\count289
 )
+(/usr/local/texlive/2022/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count290
+)
+\csq@reset=\count291
+\csq@gtype=\count292
+\csq@glevel=\count293
+\csq@qlevel=\count294
+\csq@maxlvl=\count295
+\csq@tshold=\count296
+\csq@ltx@everypar=\toks25
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+))
 (/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -278,15 +302,15 @@ Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
 \caption@hangindent=\dimen190
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count290
-\c@continuedfloat=\count291
+\c@caption@flags=\count297
+\c@continuedfloat=\count298
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
 x
-\pgfutil@everybye=\toks25
+\pgfutil@everybye=\toks26
 \pgfutil@tempdima=\dimen191
 \pgfutil@tempdimb=\dimen192
 
@@ -305,12 +329,12 @@ Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks26
-\pgfkeys@temptoks=\toks27
+\pgfkeys@pathtoks=\toks27
+\pgfkeys@temptoks=\toks28
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
 ode.tex
-\pgfkeys@tmptoks=\toks28
+\pgfkeys@tmptoks=\toks29
 ))
 \pgf@x=\dimen193
 \pgf@y=\dimen194
@@ -324,14 +348,14 @@ ode.tex
 \pgf@yd=\dimen258
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count292
-\c@pgf@countb=\count293
-\c@pgf@countc=\count294
-\c@pgf@countd=\count295
-\t@pgf@toka=\toks29
-\t@pgf@tokb=\toks30
-\t@pgf@tokc=\toks31
-\pgf@sys@id@count=\count296
+\c@pgf@counta=\count299
+\c@pgf@countb=\count300
+\c@pgf@countc=\count301
+\c@pgf@countd=\count302
+\t@pgf@toka=\toks30
+\t@pgf@tokb=\toks31
+\t@pgf@tokc=\toks32
+\pgf@sys@id@count=\count303
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
@@ -349,8 +373,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
 code.tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count297
-\pgfsyssoftpath@bigbuffer@items=\count298
+\pgfsyssoftpath@smallbuffer@items=\count304
+\pgfsyssoftpath@bigbuffer@items=\count305
 )
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
 code.tex
@@ -379,11 +403,11 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen259
-\pgfmath@count=\count299
+\pgfmath@count=\count306
 \pgfmath@box=\box101
-\pgfmath@toks=\toks32
-\pgfmath@stack@operand=\toks33
-\pgfmath@stack@operation=\toks34
+\pgfmath@toks=\toks33
+\pgfmath@stack@operand=\toks34
+\pgfmath@stack@operation=\toks35
 )
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
 tex
@@ -404,7 +428,7 @@ code.tex)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
 erarithmetics.code.tex)))
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count300
+\c@pgfmathroundto@lastzeros=\count307
 )) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
@@ -442,7 +466,7 @@ File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfpic=\box102
 \pgf@hbox=\box103
 \pgf@layerbox@main=\box104
-\pgf@picture@serial@count=\count301
+\pgf@picture@serial@count=\count308
 )
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
@@ -477,8 +501,8 @@ File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 e.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgf@max=\dimen283
-\pgf@sys@shading@range@num=\count302
-\pgf@shadingcount=\count303
+\pgf@sys@shading@range@num=\count309
+\pgf@shadingcount=\count310
 )
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
@@ -535,8 +559,8 @@ Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
 \pgffor@iter=\dimen286
 \pgffor@skip=\dimen287
-\pgffor@stack=\toks35
-\pgffor@toks=\toks36
+\pgffor@stack=\toks36
+\pgffor@toks=\toks37
 ))
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
@@ -545,7 +569,7 @@ Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count304
+\pgf@plot@mark@count=\count311
 \pgfplotmarksize=\dimen288
 )
 \tikz@lastx=\dimen289
@@ -560,19 +584,19 @@ File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \tikz@figbox@bg=\box108
 \tikz@tempbox=\box109
 \tikz@tempbox@bg=\box110
-\tikztreelevel=\count305
-\tikznumberofchildren=\count306
-\tikznumberofcurrentchild=\count307
-\tikz@fig@count=\count308
+\tikztreelevel=\count312
+\tikznumberofchildren=\count313
+\tikznumberofcurrentchild=\count314
+\tikz@fig@count=\count315
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count309
-\pgfmatrixcurrentcolumn=\count310
-\pgf@matrix@numberofcolumns=\count311
+\pgfmatrixcurrentrow=\count316
+\pgfmatrixcurrentcolumn=\count317
+\pgf@matrix@numberofcolumns=\count318
 )
-\tikz@expandcount=\count312
+\tikz@expandcount=\count319
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -587,23 +611,23 @@ Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 (/usr/local/texlive/2022/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks37
-\XKV@tempa@toks=\toks38
+\XKV@toks=\toks38
+\XKV@tempa@toks=\toks39
 )
-\XKV@depth=\count313
+\XKV@depth=\count320
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-\xargs@max=\count314
-\xargs@toksa=\toks39
-\xargs@toksb=\toks40
+\xargs@max=\count321
+\xargs@toksa=\toks40
+\xargs@toksb=\toks41
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/local/texlive/2022/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/local/texlive/2022/texmf-dist/tex/generic/xstring/xstring.tex
-\integerpart=\count315
-\decimalpart=\count316
+\integerpart=\count322
+\decimalpart=\count323
 )
 Package: xstring 2021/07/21 v1.84 String manipulations (CT)
 )
@@ -613,15 +637,11 @@ Package: expl3 2022-02-24 L3 programming layer (loader)
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count317
+\l__color_backend_stack_int=\count324
 \l__pdf_internal_box=\box111
 ))
 Package: xparse 2022-01-12 L3 Experimental document command parser
-) (/usr/local/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count318
-)
-(/usr/local/texlive/2022/texmf-dist/tex/latex/environ/environ.sty
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/trimspaces/trimspaces.sty
@@ -655,7 +675,7 @@ s.code.tex
 \pgfdecoratedinputsegmentcompleteddistance=\dimen303
 \pgfdecoratedinputsegmentremainingdistance=\dimen304
 \pgf@decorate@distancetomove=\dimen305
-\pgf@decorate@repeatstate=\count319
+\pgf@decorate@repeatstate=\count325
 \pgfdecorationsegmentamplitude=\dimen306
 \pgfdecorationsegmentlength=\dimen307
 )
@@ -711,14 +731,14 @@ s/tikzlibrarymath.code.tex
 s/tikzlibraryfpu.code.tex
 (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.cod
 e.tex))
-\tikz@math@for@depth=\count320
+\tikz@math@for@depth=\count326
 \tikz@math@dimen=\dimen308
-\tikz@math@toks=\toks41
+\tikz@math@toks=\toks42
 )
 \myl=\skip61
 \myh=\skip62
 \myd=\skip63
-\c@aaa=\count321
+\c@aaa=\count327
 LaTeX Font Info:    Trying to load font information for U+msa on input line 142
 .
  (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -729,23 +749,26 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 142
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)) (./report.aux)
+))
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... none found.
+ (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -782,17 +805,17 @@ LaTeX Font Info:    ... okay on input line 46.
 
 (/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count322
+\scratchcounter=\count328
 \scratchdimen=\dimen309
 \scratchbox=\box115
-\nofMPsegments=\count323
-\nofMParguments=\count324
-\everyMPshowfont=\toks42
-\MPscratchCnt=\count325
+\nofMPsegments=\count329
+\nofMParguments=\count330
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count331
 \MPscratchDim=\dimen310
-\MPnumerator=\count326
-\makeMPintoPDFobject=\count327
-\everyMPtoPDFconversion=\toks43
+\MPnumerator=\count332
+\makeMPintoPDFobject=\count333
+\everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -809,11 +832,11 @@ Package caption Info: End \AtBeginDocument code.
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for U+bbold on input line 1
-42.
+43.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/bbold/Ubbold.fd)
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 237.
+LaTeX Font Warning: Command \small invalid in math mode on input line 239.
 
 [2] [3]
 Missing character: There is no ; in font nullfont!
@@ -824,56 +847,58 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-[4] [5] [6]
-<2fig.png, id=45, 345.29pt x 558.085pt>
+[4] [5] [6] [7]
+<2fig.png, id=49, 345.29pt x 558.085pt>
 File: 2fig.png Graphic file (type png)
 <use 2fig.png>
-Package pdftex.def Info: 2fig.png  used on input line 796.
+Package pdftex.def Info: 2fig.png  used on input line 808.
 (pdftex.def)             Requested size: 220.50885pt x 356.40677pt.
- [7]
 <4fig.png, id=51, 482.80376pt x 368.37625pt>
 File: 4fig.png Graphic file (type png)
 <use 4fig.png>
-Package pdftex.def Info: 4fig.png  used on input line 825.
+Package pdftex.def Info: 4fig.png  used on input line 837.
 (pdftex.def)             Requested size: 482.80258pt x 368.37534pt.
 
-Overfull \hbox (27.5585pt too wide) in paragraph at lines 825--833
+Overfull \hbox (27.5585pt too wide) in paragraph at lines 837--845
 [][] 
  []
 
-[8 <./2fig.png>] (./report.bbl [9 <./4fig.png>]) [10] (./report.aux) ) 
+[8 <./2fig.png>] (./report.bbl [9 <./4fig.png>])
+Overfull \vbox (1.74724pt too high) has occurred while \output is active []
+
+
+[10] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 21252 strings out of 478268
- 445781 string characters out of 5846347
- 771143 words of memory out of 5000000
- 39066 multiletter control sequences out of 15000+600000
+ 21846 strings out of 478268
+ 455816 string characters out of 5846347
+ 788437 words of memory out of 5000000
+ 39652 multiletter control sequences out of 15000+600000
  479956 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,19n,89p,1171b,1416s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/loc
-al/texlive/2022/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb></usr/loc
-al/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/loca
-l/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/
-texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/t
-exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
-xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texl
-ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texliv
-e/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/
-2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/20
-22/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2022/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2022/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2022/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type
-1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/fonts/
-type1/public/amsfonts/symbols/msbm5.pfb>
-Output written on report.pdf (10 pages, 678796 bytes).
+ 84i,19n,89p,1171b,1419s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/bbo
+ld-type1/bbold10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.
+pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pf
+b></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></us
+r/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
+ocal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/loca
+l/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
+/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/t
+exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texl
+ive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/
+texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb>
+Output written on report.pdf (10 pages, 686197 bytes).
 PDF statistics:
  155 PDF objects out of 1000 (max. 8388607)
  94 compressed objects within 1 object stream

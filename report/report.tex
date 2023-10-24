@@ -8,6 +8,7 @@
 \usepackage [a4paper, total={16cm, 24cm}]{geometry}
 \usepackage {titlesec}
 \usepackage {enumitem}
+\usepackage {csquotes}
 \usepackage {graphicx}
 \usepackage {caption}
 \usepackage {tikz}
@@ -204,7 +205,8 @@ Traditionally, quantum solvers for combinatorial optimisation problems have
 been implemented using the quantum annealing approach. This method relies on
 the theory of adiabatic quantum computation to evolve a prepared system state
 of the Hamiltonian $H_0$ gradually towards the problem Hamiltonian $H_p$. With
-sufficiently slow evolution and noncommuting Hamiltonians $[H_0, H_p] \neq 0$,
+sufficiently slow evolution and noncommuting Hamiltonians $[H_0, H_p] \neq 0$
+(see Appendix \ref{adiabatic}),
 the system is guaranteed to arrive in the desired ground state of the problem
 by the adiabatic theorem.
 
@@ -240,7 +242,8 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 	Sketch of the QAOA setup. The state is brought into uniform superposition
 	after which repeated alternating application of rotation operators realises
 	approximately the Hamiltonian $H = H_f + H_x$ according to \eqref{lieprod}.
-	The result is measured in the $Z$ basis and the parameters $\beta, \gamma$
+	The result is measured in the $Z^{\otimes n}$ basis and the parameters
+	$\beta, \gamma$
 	are optimised classically for the next run.
 }
 \label {qaoacirc}
@@ -256,10 +259,11 @@ i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} = H \qvec{\psi(t)}
 \Longleftrightarrow
 U(t) = e^{\frac{-i}{\hbar}Ht}
 \end {equation}
-where $U$ denotes the unitary time evolution operator. This unitary can be
-decomposed into several building blocks termed quantum gates, which are
-implemented in the hardware and operate on a small subset of qubits. The
-quantum circuit thus realises the Hamiltonian.
+where $U$ denotes the unitary time evolution operator
+(see Appendix \ref{schrodinger}).
+This unitary can be decomposed into several building blocks termed quantum
+gates, which are implemented in the hardware and operate on a small subset of
+qubits. The quantum circuit thus realises the Hamiltonian.
 
 For complex Hamiltonians of the form $H = \sum_k H_k$, the following limit
 equation provides a key insight for
@@ -310,16 +314,17 @@ represent angle values for these rotations $H_x$ and $H_f$ respectively, which
 can be interpreted as the discretised duration of time the system spends under
 a particular unitary evolution.
 
-Since $H_f$ is diagonal w.r.t. $Z$ as in \eqref{hdiag}, we typically choose
-the noncommuting mixer $H_x = \sum_k \sigma^x_k$, also known as the transverse
-field mixer (cf. \eqref{isingq}). However, this choice is by no means
-inconsequential. Further studies have yielded more optimal choices for $H_x$
-and the initial system state tailored to the problem at hand.
+Since $H_f$ is diagonal w.r.t. $Z^{\otimes n}$ as in \eqref{hdiag}, we
+typically choose the noncommuting mixer $H_x = \sum_k \sigma^x_k$, also known
+as the transverse field mixer (cf. \eqref{isingq}). However, this choice is by
+no means inconsequential. Further studies have yielded more optimal choices for
+$H_x$ and the initial system state tailored to the problem at hand.
 
 In any case, the primary purpose of the mixer is to allow the system to
 escape undesirable local eigenstates should they be assumed in the course of
 running the algorithm. For this, the noncommutative relation between the two
-operators ensures that their individual eigenstates do not coincide.
+operators ensures that their individual eigenstates do not coincide
+(see Appendix \ref{adiabatic}).
 From a macro standpoint, the mixer acts to dissuade convergence towards local
 minima by effectively reshuffling the state to an extent.
 
@@ -415,7 +420,7 @@ ferromagnetism in particle physics.
 The Ising model describes a lattice structure $\Lambda$ in which each lattice
 site houses a particle. The spin of each particle is represented by a discrete
 variable $\sigma_i \in \{-1, 1\}$, $i \in \Lambda$. This spin value governs the
-local magnetic moment of the particle according to the shell model (appendix).
+local magnetic moment of the particle (see Appendix \ref{ising}).
 Neighbouring lattice sites $\qeval{i\;j}. \; i, j \in \Lambda$ influence each
 other, termed nearest neighbour interactions, whose interaction strength is
 represented by $J_{ij} \in \mathbb R$. Furthermore, one may consider the
@@ -424,6 +429,7 @@ spin wants to align with this field.
 
 Thus the Hamiltonian reads:
 \begin {equation}
+\label {isingspin}
 H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i \sigma_j - \mu \sum_{i} h_i \sigma_i
 \end {equation}
 where $\mu$ is the magnetic moment.
@@ -612,7 +618,7 @@ $\textbf{cap}$.
 Unfortunately, quantum solvers have been shown to perform relatively poorly 
 when applied to the multiple knapsack problem (refs), hence at present the
 clustering phase should be deferred to a classical algorithm as suggested
-in (refs).
+in \cite{cvrpanneal}.
 
 The routing phase takes the partitioned clusters and determines the optimal
 route for each cluster locally. The problem is thus reduced to the TSP, which
@@ -715,12 +721,18 @@ sequentially along a route, and hence the probability of visiting any one of
 these nodes is greatly affected by whether its neighbour was visited at the
 previous time step.
 
-Furthermore, the number of trials required to obtain a solution of sufficient
-quality is necessarily increased. Depending on the exact problem
+Reference \cite{effbinopt} claims this limitation is enough to limit quantum
+advantage, to the point where classical simulations may actually be more
+resource efficient. The independent probabilities governing the values of
+classical variables may be simulated by as many classical continuous
+variables. Furthermore, the number of trials required to obtain a solution of
+sufficient quality is necessarily increased. Depending on the exact problem
 configuration, particularly small coefficient values in the quantum state
 may result in certain bitstring outcomes being sampled too infrequently if at
-all while evaluating the objective function, leading to inaccuracies.
-% TODO
+all while evaluating the objective function, leading to inaccuracies. A
+possible workaround for unsampled states is to assume $\Pr x_i = 0.5$ for an
+unsampled classical binary variable $x_i$ as performed in \cite{effvrp},
+though this is a very rough estimate at best.
 
 Substituting \eqref{prob} into \eqref{qubo} and incorporating the
 probabilistic component, we obtain the following objective function for the
@@ -742,7 +754,8 @@ end, the scheme can be extended to capture two body correlations, as opposed
 to simply statistically independent variables as mentioned in this report.
 This proves useful in the context of maximum cut, since one is interested in
 the inclusion or exclusion of edges that connect two nodes rather than the
-nodes themselves. 
+nodes themselves. The ability to encode correlations in such a scheme also
+allows quantum advantage to be retained.
 
 The two body correlations were encoded as follows:
 \begin {equation}
@@ -899,6 +912,94 @@ this project possible.
 \bibliography {report}
 
 \appendix
+
+\section {Schrödinger equation and unitarity}
+\label {schrodinger}
+
+Solving the time dependent Schrödinger equation for time invariant
+Hamiltonians yields:
+\begin {equation*}
+\begin {aligned}
+i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} &= H \qvec{\psi(t)} \\
+i \hbar \; \frac{1}{\qvec{\psi(t)}} \; \partial \qvec{\psi(t)}
+&= H \; \partial t \\
+i \hbar \; \ln \frac{\qvec{\psi(t)}}{\qvec{\psi(t_0)}} &= Ht \\
+\ln \frac{\qvec{\psi(t)}}{\qvec{\psi(t_0)}} &= \frac{-i}{\hbar}Ht \\
+\qvec{\psi(t)} &= e^{\frac{-i}{\hbar}Ht} \qvec{\psi(0)} \\
+\end {aligned}
+\end {equation*}
+
+Since $H$ is an observable describing the energy content of the system
+eigenstates, it is Hermitian $H^\dag = H$ with real eigenvalues.
+Hence:
+\begin {equation*}
+\begin {aligned}
+U^\dag U &= (e^{\frac{-i}{\hbar}Ht})^\dag e^{\frac{-i}{\hbar}Ht} \\
+&= e^{\frac{i}{\hbar}H^\dag t} e^{\frac{-i}{\hbar}Ht} \\
+&= e^{\frac{i}{\hbar}Ht} e^{\frac{-i}{\hbar}Ht} \\
+&= e^{\frac{i}{\hbar}(Ht - Ht)} \\
+&= \mathbb{1}
+\end {aligned}
+\end {equation*}
+
+In this manner the unitary time evolution preserves inner products, ie.
+\begin {equation*}
+\qinner{U\phi}{U\psi} = \qcovec{\phi} U^\dag U \qvec{\psi}
+= \qinner{\phi}{\psi} 
+\end {equation*}
+for all $\qvec{\psi}, \qvec{\phi}$,
+which in conjunction with the Born rule allows one to interpret the
+wavefunction as a probability density.
+
+\section {Commutativity and adiabatic theorem}
+\label {adiabatic}
+Commutativity in this case is defined as the Lie bracket operator associated
+with the space of square matrices, ie. $[A, B] = AB - BA$. Interpreted
+literally, it defines a metric describing whether the two matrices $A$ and $B$
+commute w.r.t. multiplication. Notably, two commuting Hamiltonians share
+an eigenbasis:
+\begin {equation*}
+A \qvec{\phi_i} = \lambda_i \qvec{\phi_i}
+\end {equation*}
+Hence:
+\begin {equation*}
+AB \qvec{\phi_i} = BA \qvec{\phi_i} = B \lambda_i \qvec{\phi_i}
+= \lambda_i B \qvec{\phi_i}
+\end {equation*}
+
+The informal version of the adiabatic theorem is stated as follows:
+\begin {displayquote}
+A physical system remains in its instantaneous eigenstate if a given
+perturbation is acting on it slowly enough and if there is a gap between the
+eigenvalue and the rest of the Hamiltonian's spectrum.
+\end {displayquote}
+
+As such, in the case that the initial and final Hamiltonians $H_0$ and $H_p$
+commute only the energies of the eigenstates are reassigned, and not the
+eigenstates themselves. This runs the risk of equalising the energy levels of
+the ground and excited states at some point during adiabatic evolution,
+meaning the system is obliged to evolve infinitely slowly to obtain a
+useful result due to $T \in \mathcal{O}(\frac{1}{g^2})$.
+
+By the same reasoning, a noncommuting mixer is used in QAOA to allow
+exploration of the search space by inducing transitions between eigenstates.
+
+\section {Ising Hamiltonian}
+\label {ising}
+When considering electrons, the spin is antiparallel to the magnetic moment,
+given by:
+\begin {equation*}
+\mu = \frac{-e}{2m_e} L
+\end {equation*}
+where $L$ represents angular momentum, so the Hamiltonian should be:
+\begin {equation*}
+H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i \sigma_j + \mu \sum_{i} h_i \sigma_i
+\end {equation*}
+however conventionally it is given as in \ref{isingspin}, with the second term
+carrying a negative sign.
+
+This results in the interactions being classified as ferromagnetic for
+$J_{ij} > 0$ and antiferromagnetic for $J_{ij} < 0$.
 
 \end {multicols}
 
