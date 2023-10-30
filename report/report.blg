@@ -11,49 +11,50 @@ Database file #1: report.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty journal in cvrpqaoa
 Warning--empty journal in effvrp
+Warning--empty journal in qaoaintro
+Warning--empty journal in cvrpqaoa
 
 Done.
-You've used 6 entries,
+You've used 14 entries,
             4087 wiz_defined-function locations,
-            847 strings with 8353 characters,
-and the built_in function-call counts, 2925 in all, are:
-= -- 193
-> -- 117
+            882 strings with 9399 characters,
+and the built_in function-call counts, 6257 in all, are:
+= -- 431
+> -- 211
 < -- 0
-+ -- 56
-- -- 28
-* -- 148
-:= -- 491
-add.period$ -- 12
-call.type$ -- 6
-change.case$ -- 6
++ -- 100
+- -- 50
+* -- 284
+:= -- 1057
+add.period$ -- 28
+call.type$ -- 14
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 241
-empty$ -- 247
-format.name$ -- 33
-if$ -- 635
+cite$ -- 17
+duplicate$ -- 528
+empty$ -- 592
+format.name$ -- 61
+if$ -- 1398
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 52
-newline$ -- 41
-num.names$ -- 6
-pop$ -- 153
+int.to.str$ -- 14
+missing$ -- 108
+newline$ -- 65
+num.names$ -- 14
+pop$ -- 319
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 204
+skip$ -- 465
 stack$ -- 0
-substring$ -- 6
-swap$ -- 139
+substring$ -- 12
+swap$ -- 293
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 6
-warning$ -- 2
-while$ -- 6
-width$ -- 7
-write$ -- 68
-(There were 2 warnings)
+type$ -- 14
+warning$ -- 3
+while$ -- 14
+width$ -- 16
+write$ -- 129
+(There were 3 warnings)

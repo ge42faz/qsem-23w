@@ -87,25 +87,28 @@ planning, for example to determine efficient road, rail, shipping, and air
 routes for commercial or public interest.
 
 VRP, being itself a more general version of the Travelling Salesman Problem
-(TSP), is similarly an NP hard combinatorial optimisation problem with a
-solution space scaling factorially in the number of customers, and thus
+(TSP), is similarly an NP hard \cite{vrp} combinatorial optimisation problem
+with a solution space scaling factorially in the number of customers, and thus
 finding the definitive optimal solution already becomes intractable at
 two digit customer counts. The most optimal classical algorithms known to date
 and used in practice employ heuristics and greedy methods to construct routes
 within single digit percentage tolerances.
 
-More recently, the noisy intermediate scale quantum (NISQ) era has paved
-the way for the development of variational quantum algorithms alongside the
-potent quantum annealing method as a contender for computing reliable and
-near optimal solutions to combinatorial optimisation problems, exploiting
-the unique inherent property of quantum algorithms to operate on the
-entire solution space at once, albeit incrementally and probabilistically.
+More recently, the noisy intermediate scale quantum (NISQ) era \cite{nisq} has
+paved the way for the development of variational quantum algorithms alongside
+the potent quantum annealing \cite{annealintro} method as a contender for
+computing reliable and near optimal solutions to combinatorial optimisation
+problems, exploiting the unique inherent property of quantum algorithms to
+operate on the entire solution space at once, albeit incrementally and
+probabilistically.
 
 Initial tests have shown some promise in applying these quantum algorithms
 to the VRP against classical solvers, achieving comparable accuracy on
-small problem instances. As quantum hardware continues to improve, it makes
+small problem instances \cite{cvrpanneal} \cite{effvrp}.
+As quantum hardware continues to improve, it makes
 sense to also look at utilising it as efficiently as possible. Solving VRP
 naively using quantum methods maps one classical variable to one whole qubit,
+\cite{effvrp}
 quickly exhausting the already limited computing resources when introducing
 additional constraints such as vehicle capacity or time windows on larger
 problem scales more commonly encountered in practical scenarios.
@@ -295,7 +298,8 @@ the ideal solutions to optimisation problems.
 
 Those variational approaches specifically intended for combinatorial
 optimisation are given the name quantum approximate optimisation algorithm
-(QAOA). Following the recipe in \eqref{lieprod}, a circuit as in Fig.
+(QAOA), first described by Farhi et al. in \cite{qaoaintro}.
+Following the recipe in \eqref{lieprod}, a circuit as in Fig.
 \ref{qaoacirc}) is constructed out of alternating operators $H_f$ and $H_x$,
 where the former represents the objective function and the latter is termed
 a mixer Hamiltonian.
@@ -318,7 +322,8 @@ Since $H_f$ is diagonal w.r.t. $Z^{\otimes n}$ as in \eqref{hdiag}, we
 typically choose the noncommuting mixer $H_x = \sum_k \sigma^x_k$, also known
 as the transverse field mixer (cf. \eqref{isingq}). However, this choice is by
 no means inconsequential. Further studies have yielded more optimal choices for
-$H_x$ and the initial system state tailored to the problem at hand.
+$H_x$ and the initial system state tailored to the problem at hand
+\cite{mixeropt}.
 
 In any case, the primary purpose of the mixer is to allow the system to
 escape undesirable local eigenstates should they be assumed in the course of
@@ -336,7 +341,7 @@ repeated until a sufficiently good solution is found. By the adiabatic theorem
 and \eqref{lieprod}, arbitrarily precise solutions are theoretically possible.
 In practice studies have highlighted certain limitations, for example
 correlating solution quality inversely with the ratio of constraints to
-variables in a problem.
+variables in a problem \cite{qaoadensitybound}.
 \section {Problem Formulation}
 The quadratic unconstrained binary optimisation (QUBO) is concerned with
 finding a binary vector $\qvec{x^*} \in \{0, 1\}^n$, $n \in \mathbb N$ that
@@ -953,11 +958,11 @@ wavefunction as a probability density.
 
 \section {Commutativity and adiabatic theorem}
 \label {adiabatic}
-Commutativity in this case is defined as the Lie bracket operator associated
-with the space of square matrices, ie. $[A, B] = AB - BA$. Interpreted
-literally, it defines a metric describing whether the two matrices $A$ and $B$
-commute w.r.t. multiplication. Notably, two commuting Hamiltonians share
-an eigenbasis:
+Commutativity in this case is defined through the Lie bracket operator
+associated with the space of square matrices, ie. $[A, B] = AB - BA$.
+Interpreted literally, it defines a metric describing whether the two matrices
+$A$ and $B$ commute w.r.t. multiplication. $A$ and $B$ commute iff
+$[A, B] = 0$. Notably, two commuting Hamiltonians share an eigenbasis:
 \begin {equation*}
 A \qvec{\phi_i} = \lambda_i \qvec{\phi_i}
 \end {equation*}
@@ -971,7 +976,7 @@ The informal version of the adiabatic theorem is stated as follows:
 \begin {displayquote}
 A physical system remains in its instantaneous eigenstate if a given
 perturbation is acting on it slowly enough and if there is a gap between the
-eigenvalue and the rest of the Hamiltonian's spectrum.
+eigenvalue and the rest of the Hamiltonian's spectrum. \cite{adiabatictheo}
 \end {displayquote}
 
 As such, in the case that the initial and final Hamiltonians $H_0$ and $H_p$
@@ -984,8 +989,24 @@ useful result due to $T \in \mathcal{O}(\frac{1}{g^2})$.
 By the same reasoning, a noncommuting mixer is used in QAOA to allow
 exploration of the search space by inducing transitions between eigenstates.
 
-\section {Ising Hamiltonian}
+\section {Ising Model and Hamiltonian}
 \label {ising}
+Although the influence of a ferromagnetic particle is given as a magnetic
+field that weakens over distance, it is sufficient to consider only nearest
+neighbour interactions as a simplification.
+The magnetic flux density for a dipole is
+\begin {equation*}
+\mathbf{B} = \frac{\mu_0}{4\pi} (\frac{3\mathbf{r(m \cdot r)}}{r^5}
+- \frac{\mathbf{m}}{r^3})
+\end {equation*}
+with $\mathbf{m}$ the magnetic moment \cite{dipoleflux}.
+One observes from the first term that
+for orientations orthogonal to the dipole the field strength drops off
+substantially, and otherwise decays cubically with distance as given by the
+second term. For an evenly spaced lattice any two particles have their influence
+reduced by a factor of $\frac{1}{8}$ for each particle located in between them,
+thereby justifying the nearest neighbour simplification.
+
 When considering electrons, the spin is antiparallel to the magnetic moment,
 given by:
 \begin {equation*}
