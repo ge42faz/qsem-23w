@@ -907,7 +907,8 @@ sacrificing the ability to encode correlations within variables. It has been
 shown \cite{effvrp} to perform comparably to conventional encodings on both
 small and large scales for certain problem formulations.
 
-Acknowledgements. This report was compiled as part of a quantum seminar held
+\textit{Acknowledgements.}
+This report was compiled as part of a quantum seminar held
 at Technische Universität München during the 2023 winter semester. I would
 like to thank Prof. Christian B. Mendl and my advisor Keefe Huang of the 
 quantum research department at the university for their support in making
@@ -930,7 +931,7 @@ i \hbar \; \frac{1}{\qvec{\psi(t)}} \; \partial \qvec{\psi(t)}
 &= H \; \partial t \\
 i \hbar \; \ln \frac{\qvec{\psi(t)}}{\qvec{\psi(t_0)}} &= Ht \\
 \ln \frac{\qvec{\psi(t)}}{\qvec{\psi(t_0)}} &= \frac{-i}{\hbar}Ht \\
-\qvec{\psi(t)} &= e^{\frac{-i}{\hbar}Ht} \qvec{\psi(0)} \\
+\qvec{\psi(t)} &= e^{\frac{-i}{\hbar}Ht} \qvec{\psi(t_0)} \\
 \end {aligned}
 \end {equation*}
 
@@ -961,7 +962,7 @@ wavefunction as a probability density.
 Commutativity in this case is defined through the Lie bracket operator
 associated with the space of square matrices, ie. $[A, B] = AB - BA$.
 Interpreted literally, it defines a metric describing whether the two matrices
-$A$ and $B$ commute w.r.t. multiplication. $A$ and $B$ commute iff
+$A$ and $B$ commute w.r.t. multiplication. $A$ and $B$ commute \textit{iff}
 $[A, B] = 0$. Notably, two commuting Hamiltonians share an eigenbasis:
 \begin {equation*}
 A \qvec{\phi_i} = \lambda_i \qvec{\phi_i}
@@ -974,9 +975,11 @@ AB \qvec{\phi_i} = BA \qvec{\phi_i} = B \lambda_i \qvec{\phi_i}
 
 The informal version of the adiabatic theorem is stated as follows:
 \begin {displayquote}
+\textit	{
 A physical system remains in its instantaneous eigenstate if a given
 perturbation is acting on it slowly enough and if there is a gap between the
 eigenvalue and the rest of the Hamiltonian's spectrum. \cite{adiabatictheo}
+}
 \end {displayquote}
 
 As such, in the case that the initial and final Hamiltonians $H_0$ and $H_p$

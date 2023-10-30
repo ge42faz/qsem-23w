@@ -26,8 +26,8 @@ P.~Toth and D.~Vigo, \emph{The Vehicle Routing Problem}.\hskip 1em plus 0.5em
   minus 0.4em\relax Society for Industrial and Applied Mathematics, 2022.
 
 \bibitem{nisq}
-J.~Preskill, ``Quantum computing in the nisq era and beyond,'' \emph{Quantum},
-  2018.
+J.~Preskill, ``Quantum computing in the {NISQ} era and beyond,''
+  \emph{Quantum}, 2018.
 
 \bibitem{annealintro}
 B.~Apolloni, N.~Cesa-Bianchi, and D.~de~Falco, ``A numerical implementation of
@@ -41,7 +41,7 @@ S.~Feld, C.~Roch, T.~Gabor, C.~Seidel, F.~Neukart, I.~Galter, W.~Mauerer, and
 
 \bibitem{effvrp}
 I.~D. Leonidas, A.~Dukakis, B.~Tan, and D.~G. Angelakis, ``Qubit efficient
-  quantum algorithms for the vehicle routing problem on nisq processors,''
+  quantum algorithms for the vehicle routing problem on {NISQ} processors,''
   2023.
 
 \bibitem{qaoaintro}
