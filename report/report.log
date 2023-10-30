@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  30 OCT 2023 21:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  30 OCT 2023 21:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -865,13 +865,13 @@ Overfull \hbox (27.5585pt too wide) in paragraph at lines 843--851
 
 [8 <./2fig.png>] (./report.bbl [9 <./4fig.png>]) [10] [11] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 21854 strings out of 478268
- 455906 string characters out of 5846347
- 789516 words of memory out of 5000000
- 39660 multiletter control sequences out of 15000+600000
+ 21897 strings out of 478268
+ 456962 string characters out of 5846347
+ 792055 words of memory out of 5000000
+ 39703 multiletter control sequences out of 15000+600000
  479956 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,19n,89p,1171b,1420s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,19n,89p,1171b,1729s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </us
 r/local/texlive/2022/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb></us
 r/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
@@ -895,7 +895,7 @@ nts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/font
 s/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm5.pfb>
-Output written on report.pdf (11 pages, 693323 bytes).
+Output written on report.pdf (11 pages, 693457 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
  96 compressed objects within 1 object stream

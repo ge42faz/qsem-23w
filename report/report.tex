@@ -230,12 +230,12 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 & \gate[3]{e^{-i \beta_1 H_x}} & \qw \ \ldots \
 & \gate[3]{e^{-i \gamma_n H_f}} & \gate[3]{e^{-i \beta_n H_x}}
 \slice{$\rvert \psi(\beta, \gamma) \rangle$}
-& \gate[3]{\rvert z_k \rangle \langle z_k \lvert}
+& \meter{} \arrow[r] &
 \\
-&&&& \qw \ \ldots \ &&& \arrow[r] &
+&&&& \qw \ \ldots \ &&& \meter{} \arrow[r] &
 \rstick{\small observe and \\ \small optimise \\ parameters}
 \\
-&&&& \qw \ \ldots \ &&&
+&&&& \qw \ \ldots \ &&& \meter{} \arrow[r] &
 \\
 && \arrow[u] \gamma_1 & \arrow[u] \beta_1 & (\small \text{depth }n)
 & \arrow[u] \gamma_n & \arrow[u] \beta_n &&
