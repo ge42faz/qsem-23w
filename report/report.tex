@@ -206,10 +206,10 @@ attempting to maximise the number of customers or total goods supplied.
 \section {Quantum Optimisation}
 Traditionally, quantum solvers for combinatorial optimisation problems have
 been implemented using the quantum annealing approach. This method relies on
-the theory of adiabatic quantum computation to evolve a prepared system state
-of the Hamiltonian $H_0$ gradually towards the problem Hamiltonian $H_p$. With
-sufficiently slow evolution and noncommuting Hamiltonians $[H_0, H_p] \neq 0$
-(see Appendix \ref{adiabatic}),
+the theory of adiabatic quantum computation to evolve an easily prepared
+ground state of the driver Hamiltonian $H_0$ gradually towards the ground state
+of the problem Hamiltonian $H_p$. With sufficiently slow evolution and
+noncommuting Hamiltonians $[H_0, H_p] \neq 0$ (see Appendix \ref{adiabatic}),
 the system is guaranteed to arrive in the desired ground state of the problem
 by the adiabatic theorem.
 
@@ -226,7 +226,7 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 \begin {figure*}
 \centering
 \begin {quantikz}
-& \gate[3]{H^{\otimes n}} & \gate[3]{e^{-i \gamma_1 H_f}}
+& \gate[3]{H^{\otimes m}} & \gate[3]{e^{-i \gamma_1 H_f}}
 & \gate[3]{e^{-i \beta_1 H_x}} & \qw \ \ldots \
 & \gate[3]{e^{-i \gamma_n H_f}} & \gate[3]{e^{-i \beta_n H_x}}
 \slice{$\rvert \psi(\beta, \gamma) \rangle$}
@@ -245,7 +245,7 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 	Sketch of the QAOA setup. The state is brought into uniform superposition
 	after which repeated alternating application of rotation operators realises
 	approximately the Hamiltonian $H = H_f + H_x$ according to \eqref{lieprod}.
-	The result is measured in the $Z^{\otimes n}$ basis and the parameters
+	The result is measured in the $Z^{\otimes m}$ basis and the parameters
 	$\beta, \gamma$
 	are optimised classically for the next run.
 }
@@ -279,7 +279,7 @@ e^{A+B} = \lim_{n \rightarrow \infty}
 As a result, the time evolution can be approximated as:
 \begin {equation}
 \label {lieprod}
-U(t, n) = \prod_{i \le n} \prod_k \; e^{\frac{-i H_k t}{n}}
+U(t, n) = \prod_{j \le n} \prod_k \; e^{\frac{-i H_k t}{n}}
 \end {equation}
 ie. a series of smaller gate unitaries that may be repeated ad infinitum.
 
@@ -305,10 +305,10 @@ where the former represents the objective function and the latter is termed
 a mixer Hamiltonian.
 \begin {equation}
 \label {qaoa}
-\qvec{\psi(\beta, \gamma)} = \prod_i e^{-i \beta_i H_x} e^{-i \gamma_i H_f}
-\; \qvec{+}^{\otimes n}
+\qvec{\psi(\beta, \gamma)} = \prod_k e^{-i \beta_k H_x} e^{-i \gamma_k H_f}
+\; \qvec{+}^{\otimes m}
 \end {equation}
-where $\qvec{+}^{\otimes n}$ is the uniform superposition obtained through
+where $\qvec{+}^{\otimes m}$ is the uniform superposition obtained through
 the Hadamard transform of the initial ground state, so as to begin optimising
 from a neutral position.
 
@@ -342,6 +342,8 @@ and \eqref{lieprod}, arbitrarily precise solutions are theoretically possible.
 In practice studies have highlighted certain limitations, for example
 correlating solution quality inversely with the ratio of constraints to
 variables in a problem \cite{qaoadensitybound}.
+
+
 \section {Problem Formulation}
 The quadratic unconstrained binary optimisation (QUBO) is concerned with
 finding a binary vector $\qvec{x^*} \in \{0, 1\}^n$, $n \in \mathbb N$ that
@@ -359,9 +361,12 @@ f_Q(x) = \qcovec{x} Q \qvec{x} =
 
 In general, QUBO is also NP hard due to the exponential scaling of the
 solution space in $\qnorm{\{0, 1\}^n} \in \mathcal{O}(2^n)$ with respect
-to the number of dimensions $n$. Many combinatorial optimisation problems have
-conversions into QUBO \cite{isingnp} \cite{tutqubo}, not least the VRP and its
-variants. These conversions
+to the number of dimensions $n$. Crucially, a useful property of QUBO is its
+flexibility. One is able to encode in $Q$ various problem constraints, such
+as connectivity and edge weightings of graphs. Significant efforts have been
+invested such that many combinatorial optimisation problems have conversions
+into QUBO \cite{isingnp} \cite{tutqubo},
+not least the VRP and its variants. These conversions
 are useful to establish a uniform problem description for solvers to work with,
 however in the context of quantum solvers, they are further motivated by the 
 equivalence between QUBO and the Hamiltonian of the Ising model for
@@ -1024,6 +1029,9 @@ carrying a negative sign.
 
 This results in the interactions being classified as ferromagnetic for
 $J_{ij} > 0$ and antiferromagnetic for $J_{ij} < 0$.
+
+\section {Ising and QUBO equivalence}
+
 
 \end {multicols}
 

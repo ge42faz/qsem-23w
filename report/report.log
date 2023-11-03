@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  30 OCT 2023 21:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  3 NOV 2023 22:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -851,15 +851,15 @@ Missing character: There is no ; in font nullfont!
 <2fig.png, id=49, 345.29pt x 558.085pt>
 File: 2fig.png Graphic file (type png)
 <use 2fig.png>
-Package pdftex.def Info: 2fig.png  used on input line 814.
+Package pdftex.def Info: 2fig.png  used on input line 819.
 (pdftex.def)             Requested size: 220.50885pt x 356.40677pt.
 <4fig.png, id=51, 482.80376pt x 368.37625pt>
 File: 4fig.png Graphic file (type png)
 <use 4fig.png>
-Package pdftex.def Info: 4fig.png  used on input line 843.
+Package pdftex.def Info: 4fig.png  used on input line 848.
 (pdftex.def)             Requested size: 482.80258pt x 368.37534pt.
 
-Overfull \hbox (27.5585pt too wide) in paragraph at lines 843--851
+Overfull \hbox (27.5585pt too wide) in paragraph at lines 848--856
 [][] 
  []
 
@@ -867,7 +867,7 @@ Overfull \hbox (27.5585pt too wide) in paragraph at lines 843--851
 Here is how much of TeX's memory you used:
  21897 strings out of 478268
  456962 string characters out of 5846347
- 792055 words of memory out of 5000000
+ 793064 words of memory out of 5000000
  39703 multiletter control sequences out of 15000+600000
  479956 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -895,7 +895,7 @@ nts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/font
 s/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2022/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm5.pfb>
-Output written on report.pdf (11 pages, 695270 bytes).
+Output written on report.pdf (11 pages, 696186 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
  96 compressed objects within 1 object stream
