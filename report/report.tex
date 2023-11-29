@@ -36,8 +36,8 @@
 
 
 \title {
-	Seminar: Advanced Topics in \\
-	Quantum Computing \\
+	{\Large Seminar: Advanced Topics in Quantum Computing \\}
+	\vspace {0.4cm}
 	On efficient encodings for QAOA \\
 	solutions to vehicle routing problems
 }
@@ -45,23 +45,26 @@
 \date {\today}
 
 \begin {document}
-\maketitle
+\vspace* {-1.8cm}
+{\let \newpage \relax \maketitle}
 
 \begin {abstract}
-This report details recent advances in the optimisation of computing resources
-for quantum approaches to solving the vehicle routing problem (VRP) and 
-its variants. This set of problems is of significant importance with regard
-to logistical applications in industry. In accordance with the input
-constraints of the quantum hardware, the problem is formulated as a quadratic
-unconstrained binary optimisation (QUBO). A simple approach known as the
-full encoding results in each solution represented by a unique basis state,
-thereby requiring one qubit per classical variable. Due to this inefficiency
-in resource allocation when considering the limitations of noisy intermediate
-scale quantum (NISQ) devices at present,
-a more optimised minimal encoding is suggested that offers a logarithmic
-reduction in necessary computing power. In spite of certain drawbacks incurred
-by employing this minimal encoding, experiments have shown that the solution
-quality is not heavily impacted.
+This report details recent advances in optimising computational resource usage
+for variational quantum approaches, with an application to solving the vehicle
+routing problem (VRP) and its variants. This set of problems is of significant
+importance with regard to logistical applications in industry. The quantum
+approximate optimisation algorithm (QAOA) can be used to perform combinatorial
+optimisation on present day gate model quantum devices. In accordance with
+hardware input constraints, the problem is formulated as a quadratic
+unconstrained binary optimisation (QUBO), which is equivalent to finding the
+ground state of the corresponding Ising Hamiltonian. A simple approach known as
+the full encoding results in each solution represented by a unique basis state,
+thereby requiring one qubit per classical variable. Due to this inefficiency in
+resource allocation when considering the limitations of noisy intermediate scale
+quantum (NISQ) devices at present, a more optimised minimal encoding has been
+suggested that offers a logarithmic scaling in necessary computing power with
+respect to the problem size. The benefits and drawbacks as well as overall
+feasibility of this encoding are explored and discussed.
 \end {abstract}
 
 \begin {multicols}{2}
@@ -91,7 +94,8 @@ VRP, being itself a more general version of the Travelling Salesman Problem
 with a solution space scaling factorially in the number of customers, and thus
 finding the definitive optimal solution already becomes intractable at
 two digit customer counts. The most optimal classical algorithms known to date
-and used in practice employ heuristics and greedy methods to construct routes
+and used in practice employ heuristics and greedy methods, some of the most well
+known to date being tabu search and column generation, to construct routes
 within single digit percentage tolerances.
 
 More recently, the noisy intermediate scale quantum (NISQ) era \cite{nisq} has
@@ -107,7 +111,7 @@ to the VRP against classical solvers, achieving comparable accuracy on
 small problem instances \cite{cvrpanneal} \cite{effvrp}.
 As quantum hardware continues to improve, it makes
 sense to also look at utilising it as efficiently as possible. Solving VRP
-naively using quantum methods maps one classical variable to one whole qubit
+naively using quantum methods maps one whole qubit to one classical variable
 \cite{effvrp},
 quickly exhausting the already limited computing resources when introducing
 additional constraints such as vehicle capacity or time windows on larger
@@ -115,34 +119,35 @@ problem scales more commonly encountered in practical scenarios.
 
 This report discusses recent research into an idea to mitigate this
 uneconomical use of computing power through a more clever and refined 
-encoding of the input problem, in order to achieve a logarithmic correlation
-between problem size and resource consumption.
+encoding of the input problem, in order to achieve a logarithmic scaling of
+resource consumption with respect to problem size.
 Section II outlines a formal description of the VRP and some of its variants
-as a graph problem.
-In section III, quantum algorithms for NISQ era processors that see use in
-combinatorial optimisation are briefly highlighted.
-Section IV explains the QUBO and its application to solving the VRP on
-quantum hardware, along with a brief mention of the closely related
-Ising model and in particular its Hamiltonian function. From this, a
-formulation for the VRP can be derived.
+modelled as a graph problem.
+In section III, quantum methods and algorithms for NISQ era processors that
+see use in combinatorial optimisation are briefly highlighted.
+Section IV discusses the problem formulation. It explains the QUBO and
+its usage as an input method to solving the VRP on quantum hardware, along
+with its relationship to the Ising model and in particular the
+Ising Hamiltonian. From this, a formulation for the VRP can be derived.
 Section V details encoding approaches onto the quantum system and lists
 benefits and drawbacks for each, with a focus on managing computational
-resources.
+resource demand.
 Published experimental observations describing the impact of the encodings
 are depicted and discussed in Section VI,
 and the report concludes in Section VII.
 
 \section {Vehicle Routing Problem}
 The vehicle routing problem (VRP) is a generalisation of the perhaps more
-well known NP hard Travelling Salesman Problem (TSP). VRP seeks the optimal
-route or routes for a number of vehicles to traverse in order to deliver
-certain goods to customers in various locations.
+well known Travelling Salesman Problem (TSP), itself building upon the
+Hamiltonian cycle problem first proved NP hard by Karp \cite{karp21}. VRP seeks
+the optimal route or routes for a number of vehicles to traverse in order to
+deliver certain goods to customers in various locations \cite{vrpintro}.
 
 The problem is modelled intuitively by a graph $G = (V, E)$
 where each node or vertex $v_i \in V$ represents the location of a customer 
 and each edge $(i, j) \in E$ connecting two vertices corresponds to a path
 traversible by a delivery vehicle. $\qnorm{V} = N$ is then the number
-of customers considered. Traversing an edge $(i, j)$ typically incurs
+of customers considered. Traversing an edge $(i, j)$ incurs
 a cost represented by $c_{ij} \in \mathbb R_{\ge 0}$, of which the total
 value summed up across the entire journey is to be optimised, ie. made as
 small as possible. This cost may be set based on travel time, distance,
@@ -155,7 +160,7 @@ $c_{ij} = c_{i n_1} + ... + c_{n_m j}$ corresponding to
 the most efficient path available between them. This preprocessing step does
 not necessarily complicate matters, and classical algorithms exist for all
 pairs shortest path with known polynomial runtime performance, such as
-the Dijkstra algorithm. Furthermore, each graph contains a
+the Dijkstra algorithm \cite{dijkstra}. Furthermore, each graph contains a
 designated node $v_0 \in V$ known as the depot. Valid routes must always
 begin and end at the depot. A valid route is then a tuple
 $r = (v_n, v_{n+1}, ..., v_m)$ s.t.
@@ -177,8 +182,8 @@ $v_n = v_m = v_0 \; \land \; \forall n. \; (v_n, v_{n+1}) \in E$.
 	An illustration of the VRP as a graph problem. The white nodes represent
 	customers, with an optional demand value $d_k$ or a time window interval.
 	One aims to find the most efficient route (represented by the cumulative
-	edge cost $c_ij$) that delivers to all customers and respects the problem
-	constraints.
+	edge cost $\sum{c_{ij}}$) that delivers to all customers and respects the
+	problem constraints.
 }
 \end {center}
 \vspace {0.3cm}
@@ -188,7 +193,8 @@ minimal constraints. However, additional constraints may be imposed as
 needed to better reflect a practical use case at the expense of slightly
 complicating the model. For example, the capacitated VRP or CVRP stipulates
 a fixed upper bound on the carrying capacity of each vehicle leaving the
-depot, where in most cases this value is consistent across all vehicles.
+depot, where in most cases this value is consistent across all vehicles
+\cite{cvrpanneal}.
 Customers $v_i$ are then assigned a score $d_i \in \mathbb R_{\ge 0}$ 
 reflecting their demand quantity. This introduces the complication of
 optimising for capacity and demand as well as edge cost, and the ideal
@@ -196,7 +202,8 @@ solution for a given graph will most likely differ from the simple VRP.
 
 On the other hand, the VRP with time windows (VRPTW) introduces a secondary
 time parameter. Customers $v_i$ are assigned a certain time window
-$[t_i^0, t_i^f] \subseteq \mathbb R_{\ge 0}$ in which they expect a delivery.
+$[t_i^0, t_i^f] \subseteq \mathbb R_{\ge 0}$ in which they expect a delivery
+\cite{effvrp}.
 For the depot $v_0$ this interval is $[0, \infty)$ for simplicity. Hence the
 edge costs $c_{ij}$ represent travel time between two nodes in this
 formulation, and the objective shifts to finding the optimal route that
@@ -205,13 +212,14 @@ attempting to maximise the number of customers or total goods supplied.
 
 \section {Quantum Optimisation}
 Traditionally, quantum solvers for combinatorial optimisation problems have
-been implemented using the quantum annealing approach. This method relies on
-the theory of adiabatic quantum computation to evolve an easily prepared
+been implemented using the quantum annealing approach \cite{annealising}
+\cite{annealspinglass}. This method relies on the theory of adiabatic quantum
+computation \cite{adiabaticsat} to evolve an easily prepared
 ground state of the driver Hamiltonian $H_0$ gradually towards the ground state
 of the problem Hamiltonian $H_p$. With sufficiently slow evolution and
 noncommuting Hamiltonians $[H_0, H_p] \neq 0$ (see Appendix \ref{adiabatic}),
 the system is guaranteed to arrive in the desired ground state of the problem
-by the adiabatic theorem.
+by the adiabatic theorem \cite{adiabatictheo}.
 
 More precisely, the system evolves according to
 \begin {equation}
@@ -220,8 +228,9 @@ H(t) = \left(1 - \frac{t}{T}\right) \cdot H_0 + \frac{t}{T} \cdot H_p
 with $0 \leq t \leq T$, where the total algorithm runtime $T$ is bound by
 $T \in \mathcal{O}(\frac{1}{g^2})$. Here $g$ denotes the spectral gap of $H$,
 the minimal energy difference between the ground state and first excited
-state throughout the evolution. Consequently, Hamiltonians with narrower
-spectral gaps have to be evolved more slowly for the sake of precision.
+state throughout the evolution \cite{spectralgap}. Consequently, Hamiltonians
+with narrower spectral gaps have to be evolved more slowly for the sake of
+precision.
 
 \begin {figure*}
 \centering
@@ -254,8 +263,8 @@ spectral gaps have to be evolved more slowly for the sake of precision.
 
 On the other hand, the more common circuit model processor operates based on a
 series of quantum gates connected in a circuit in order to manipulate the
-quantum state to a desired outcome. This principle of operation is founded
-upon the solution to the time dependent Schrödinger equation for time
+quantum state to a desired outcome \cite{qcintro}. This principle of operation
+is founded upon the solution to the time dependent Schrödinger equation for time
 invariant Hamiltonians:
 \begin {equation}
 i \hbar \frac{\partial}{\partial t} \qvec{\psi(t)} = H \qvec{\psi(t)}
@@ -266,19 +275,21 @@ where $U$ denotes the unitary time evolution operator
 (see Appendix \ref{schrodinger}).
 This unitary can be decomposed into several building blocks termed quantum
 gates, which are implemented in the hardware and operate on a small subset of
-qubits. The quantum circuit thus realises the Hamiltonian.
+qubits. The quantum circuit thus realises the time evolution described by the
+Hamiltonian.
 
 For complex Hamiltonians of the form $H = \sum_k H_k$, the following limit
-equation provides a key insight for
+equation \cite{matexp} provides a key insight for
 $A, B \in \mathbb C^{m \times m}, m \in \mathbb N$:
 \begin {equation}
+\label {lieprod}
 e^{A+B} = \lim_{n \rightarrow \infty}
 \big(e^{\frac{A}{n}} \cdot e^{\frac{B}{n}}\big)^n
 \end {equation}
 
 As a result, the time evolution can be approximated as:
 \begin {equation}
-\label {lieprod}
+\label {unitaryiter}
 U(t, n) = \prod_{j \le n} \prod_k \; e^{\frac{-i H_k t}{n}}
 \end {equation}
 ie. a series of smaller gate unitaries that may be repeated ad infinitum.
@@ -287,14 +298,15 @@ The advances in circuit model quantum processors that have brought
 about the NISQ era have offered an alternative approach to tackle optimisation
 problems, namely that of supplementing a quantum algorithm with classically
 tuned parameters to iteratively arrive at a good approximation of the ground
-state, known as variational algorithms. NISQ era processors are characterised
-by a primary limitation of restricted circuit depth due to their sensitivity
-to noise as well as the inability to correct the faults introduced. These
-practical limitations prevent the substitution high values of $n$ in
-\eqref{lieprod}. However, by offloading some of the computation to a classical
-algorithm and proceeding with iterative refinement, this limitation can be
-worked around to a degree that allows one to obtain reasonable estimations of
-the ideal solutions to optimisation problems.
+state, known as variational algorithms \cite{variational}. NISQ era processors
+are characterised \cite{nisq} by a primary limitation of restricted circuit
+depth due to their sensitivity to noise as well as the inability to efficiently
+and reliably correct the faults introduced. These practical limitations prevent 
+the substitution high values of $n$ in \eqref{lieprod}. However, by offloading
+some of the computation to a classical algorithm and proceeding with iterative
+refinement, this limitation can be worked around to a degree that allows one to
+obtain reasonable estimations of the ideal solutions to optimisation problems
+\cite{nisqalg}.
 
 Those variational approaches specifically intended for combinatorial
 optimisation are given the name quantum approximate optimisation algorithm
@@ -308,22 +320,23 @@ a mixer Hamiltonian.
 \qvec{\psi(\beta, \gamma)} = \prod_k e^{-i \beta_k H_x} e^{-i \gamma_k H_f}
 \; \qvec{+}^{\otimes m}
 \end {equation}
-where $\qvec{+}^{\otimes m}$ is the uniform superposition obtained through
+Here $\qvec{+}^{\otimes m}$ is the uniform superposition obtained through
 the Hadamard transform of the initial ground state, so as to begin optimising
 from a neutral position.
 
 The series of unitary evolutions are commonly implemented in the gate model as
-qubit rotation operator arrays. The parameters $\beta_i$ and $\gamma_i$
-represent angle values for these rotations $H_x$ and $H_f$ respectively, which
-can be interpreted as the discretised duration of time the system spends under
-a particular unitary evolution.
+qubit rotation operator arrays \cite{effvrp}. The parameters $\beta_i$ and
+$\gamma_i$ represent angle values for these rotations $H_x$ and $H_f$
+respectively, which can be interpreted as the discretised duration of time the
+system spends under a particular unitary evolution due to \eqref{unititer}.
 
-Since $H_f$ is diagonal w.r.t. $Z^{\otimes n}$ as in \eqref{hdiag}, we
-typically choose the noncommuting mixer $H_x = \sum_k \sigma^x_k$, also known
-as the transverse field mixer (cf. \eqref{isingq}). However, this choice is by
+Since $H_f$ is typically diagonal w.r.t. $Z^{\otimes n}$ (see below
+\eqref{hdiag}), we typically choose the noncommuting mixer
+$H_x = \sum_k \sigma^x_k$, also known as the transverse field mixer
+(cf. \eqref{isingq}). However, this choice is by
 no means inconsequential. Further studies have yielded more optimal choices for
-$H_x$ and the initial system state tailored to the problem at hand
-\cite{mixeropt}.
+$H_x$ and the initial system state tailored to the problem at hand, which allow
+for overall quicker convergence to the optimum \cite{mixeropt}.
 
 In any case, the primary purpose of the mixer is to allow the system to
 escape undesirable local eigenstates should they be assumed in the course of
@@ -333,13 +346,13 @@ operators ensures that their individual eigenstates do not coincide
 From a macro standpoint, the mixer acts to dissuade convergence towards local
 minima by effectively reshuffling the state to an extent.
 
-After each pass of the circuit, the system state should attain significant
-overlap to the desirable eigenstate. The optimised result is read out with
-high probability through a measurement and a classical optimiser attempts to
-refine the angle parameters $\beta_i, \gamma_i$. This procedure is then
-repeated until a sufficiently good solution is found. By the adiabatic theorem
-and \eqref{lieprod}, arbitrarily precise solutions are theoretically possible.
-In practice studies have highlighted certain limitations, for example
+After each completed pass of the circuit, the system state should have attained
+significant overlap to the desirable eigenstate. The optimised result is read
+out with high probability through a measurement and a classical optimiser
+attempts to refine the angle parameters $\beta_i, \gamma_i$. This procedure is
+then repeated until a sufficiently good solution is found. By the adiabatic
+theorem and \eqref{lieprod}, arbitrarily precise solutions are theoretically
+possible. In practice studies have highlighted certain limitations, for example
 correlating solution quality inversely with the ratio of constraints to
 variables in a problem \cite{qaoadensitybound}.
 
@@ -366,11 +379,11 @@ flexibility. One is able to encode in $Q$ various problem constraints, such
 as connectivity and edge weightings of graphs. Significant efforts have been
 invested such that many combinatorial optimisation problems have conversions
 into QUBO \cite{isingnp} \cite{tutqubo},
-not least the VRP and its variants. These conversions
+not least the VRP and its variants \cite {qubolist}. These conversions
 are useful to establish a uniform problem description for solvers to work with,
 however in the context of quantum solvers, they are further motivated by the 
 equivalence between QUBO and the Hamiltonian of the Ising model for
-ferromagnetism in particle physics.
+ferromagnetism.
 
 \vspace {0.3cm}
 \begin {center}
@@ -435,7 +448,7 @@ Neighbouring lattice sites $\qeval{i\;j}. \; i, j \in \Lambda$ influence each
 other, termed nearest neighbour interactions, whose interaction strength is
 represented by $J_{ij} \in \mathbb R$. Furthermore, one may consider the
 influence of an external field $h_i$ at site $i \in \Lambda$, such that the
-spin wants to align with this field.
+spin wants to align with this field. \cite{isingmodel}
 
 Thus the Hamiltonian reads:
 \begin {equation}
@@ -457,7 +470,7 @@ lattice site.
 
 Notably, the Ising model is typically simplified to exclude the transverse
 field, resulting in a classical Hamiltonian where the constituent terms
-commute ie. a diagonal operator in the $Z$ basis.
+commute ie. a diagonal operator in the $Z^{\otimes n}$ basis.
 \begin {equation}
 \label {hdiag}
 H = \sum_{z \in \{0, 1\}^n} E_z \; \qouter{z}{z}
@@ -467,8 +480,8 @@ $\qvec{\phi}$ with $\phi \in \{0, 1\}^n$, allowing for simple measurement to
 obtain an eigenvalue mappable to a specific bit string solution.
 
 Through the reversible transformation $\sigma \mapsto 2x - 1$, where
-$x \in \{0, 1\}$ s.t. $-1 \mapsto 0$ and $1 \mapsto 1$, one
-obtains the equivalent QUBO formulation for free, and hence optimising for 
+$x \in \{0, 1\}$ s.t. $-1 \mapsto 0$ and $1 \mapsto 1$, one obtains the
+equivalent QUBO formulation for free \cite{tutqubo}, and hence optimising for
 the ground state of the Ising Hamiltonian is equivalent to optimising the
 QUBO objective function.
 
@@ -492,8 +505,8 @@ Note that for simplicity, we do not distinguish between vehicles and routes,
 under the premise that each route will be navigated by exactly one vehicle.
 Since in CVRP the routes are optimised for the vehicle capacity $m$, assuming
 homogeneous vehicles this simplification is unlikely to affect the final
-result. Furthermore, some CVRP variants consider multiple depot nodes. This
-variant will also not be further investigated here.
+result. Furthermore, some CVRP variants consider multiple depot nodes
+\cite{mdvrp}. This variant will also not be further investigated here.
 
 Let $x_{t, i}^r \in \{0, \; 1\}$ denote the assignment of the customer node
 $v_i$ to be visited along route $r \in \mathbb N_0$ at time step
@@ -536,7 +549,7 @@ route $r$. Intuitively, $\Delta$ represents the tolerable deviation of the
 amount loaded onto the vehicle on route $r$ compared to maximum capacity.
 Naturally not fully loading the vehicle and forcing an early return to depot
 may be suboptimal in many cases, however the edge cost metric represented by
-the objective function $H_c$ is sufficient to deter this.
+the objective function $H_c$ should be sufficient to deter this.
 
 \begin {equation}
 H_c = \sum_{i, \; j, \; t, \; r} c_{ij} \; x_{i, t}^r \; x_{j, t+1}^r
@@ -552,15 +565,15 @@ Here $p_k \in \mathbb R_{\ge 0}$ with $k \in \{1, 2, 3\}$ corresponds to a
 large penalty value that serves to mark a potential solution as undesirable,
 in the case that one or more of the corresponding constraints are violated.
 The exact values of $p_k$ are dependent on the problem instance and must be
-heuristically determined and optimised.
+heuristically determined and optimised \cite{cvrpqaoa} \cite{cvrpanneal}.
 
 Crucially, this description of the CVRP is only one of several possible
-formulations. Extensive research has been conducted into determining the most
-optimal description that benefits solution quality as well as speed of
-convergence. In particular, the formulation in \eqref{hcvrp} turns out not to
-be suitable with regard to current limitations of NISQ era processors, due to
-the large amount of free binary variables and comparative lack of computing
-resources available to account for them all.
+formulations \cite{cvrpanneal}. Extensive research has been conducted into
+determining the most optimal description that benefits solution quality as well
+as speed of convergence. In particular, the formulation in \eqref{hcvrp} turns
+out not to be suitable with regard to current limitations of NISQ era
+processors, due to the large amount of free binary variables and comparative
+lack of computing resources available to account for them all.
 
 As it stands, the number of binary variables needed is in the order of
 $\mathcal{O}(\qnorm{V}^3)$, considering the number of customer nodes, time
@@ -591,7 +604,8 @@ ideal route in each of these clusters as in the TSP.
 
 \captionof {figure}	{
 	The clustering and routing phase. The clustering phase divides nodes into
-	collections (shown in blue and red) where the total demand shown under
+	collections (shown in blue and red) where the total demand obtained 
+	through summation of the individual demand scores shown under
 	each node does not exceed the vehicle capacity (in this case $m = 9$),
 	similar to the multiple knapsack problem. The routing phase involves
 	optimising each route individually for minimal edge cost as a TSP.
@@ -623,12 +637,12 @@ It is worth noting that the penalty value $q_3$ should be set more modestly in
 comparison to the others, given that \textbf{cluster} is not a hard constraint
 but rather a metric measuring the optimality of clusters. It should always be
 more appealing to relax \textbf{cluster} over violating $\textbf{once}$ or
-$\textbf{cap}$.
+$\textbf{cap}$ \cite{cvrpqaoa}.
 
 Unfortunately, quantum solvers have been shown to perform relatively poorly 
-when applied to the multiple knapsack problem (refs), hence at present the
-clustering phase should be deferred to a classical algorithm as suggested
-in \cite{cvrpanneal}.
+when applied to the multiple knapsack problem \cite{multknapsack}, hence at
+present the clustering phase should be deferred to a classical algorithm as
+suggested in \cite{cvrpanneal}.
 
 The routing phase takes the partitioned clusters and determines the optimal
 route for each cluster locally. The problem is thus reduced to the TSP, which
@@ -650,7 +664,8 @@ start node to be the depot $v_0$.
 We assume the use of a conventional NISQ processor to tackle a VRP involving
 $n_c$ classical binary variables. A simple mapping from the VRP to QUBO uses
 what is known as the complete encoding, where each classical binary variable
-is represented by a single qubit. The quantum state takes the form:
+is represented by a single qubit, meaning each basis state corresponds to a
+complete potential solution to the problem. The quantum state takes the form:
 \begin {align}
 \qvec{\psi(\theta)} 
 &= U(\theta)\qvec{\psi_0} \\
@@ -663,7 +678,7 @@ $\alpha$ is parametrised by a set of angles $\theta$. In variational
 algorithms, $\theta$ are heuristically determined values that serve to tune
 arrays of rotation unitaries, which are adjusted after each pass to attain
 the optimised state $\qvec{\psi^*} = U(\theta^*)\qvec{\psi_0}$
-(cf. \eqref{qaoa}).
+(cf. \eqref{qaoa}) \cite{qaoaintro}.
 
 The QUBO objective function in the complete encoding is described by the
 expectation of the equivalent Ising Hamiltonian:
@@ -735,7 +750,8 @@ Reference \cite{effbinopt} claims this limitation is enough to limit quantum
 advantage, to the point where classical simulations may actually be more
 resource efficient. The independent probabilities governing the values of
 classical variables may be simulated by as many classical continuous
-variables. Furthermore, the number of trials required to obtain a solution of
+variables \cite{contopt}.
+Furthermore, the number of trials required to obtain a solution of
 sufficient quality is necessarily increased. Depending on the exact problem
 configuration, particularly small coefficient values in the quantum state
 may result in certain bitstring outcomes being sampled too infrequently if at
@@ -761,10 +777,10 @@ $P_i^1 = \qouter{1}{1} \otimes P_i$.
 Additionally, the minimal encoding scheme proposed here was originally
 conceived for solving graph maximum cut problems \cite{effbinopt}. To this
 end, the scheme can be extended to capture two body correlations, as opposed
-to simply statistically independent variables as mentioned in this report.
-This proves useful in the context of maximum cut, since one is interested in
-the inclusion or exclusion of edges that connect two nodes rather than the
-nodes themselves. The ability to encode correlations in such a scheme also
+to simply statistically independent variables as covered here. This proves
+useful in the context of maximum cut, since one is interested in the
+partitioning of nodes into two groups, and focuses on the edges connecting
+the nodes. The ability to encode correlations in such a scheme also
 allows quantum advantage to be retained.
 
 The two body correlations were encoded as follows:
@@ -878,7 +894,7 @@ quantum chemistry, again with the aim of finding the ground state of some
 problem Hamiltonian. Unlike QAOA, VQE refines the initial state classically,
 and formulates the problem Hamiltonian as a Pauli string $H = \bigotimes_i w_i
 \cdot \{\mathbb{1}_i, \sigma^x_i, \sigma^y_i, \sigma^z_i\}$, and measures the
-result in this manner as well.
+result in this manner as well \cite{vqe}.
 
 In any case, the authors of \cite{cvrpqaoa} pointed to the problem formulation
 as a factor that potentially inhibited the QAOA, and suggested an alternate
@@ -895,22 +911,46 @@ within 97\% of the best known solution.
 Based on these preliminary findings, it seems that the success that quantum
 algorithms enjoy upon tackling VRP is heavily dependent on an advantageous
 problem formulation. In light of this, continued research towards optimising
-this for various algorithms with an eye on resource efficiency may yet prove
-fruitful as NISQ era processors become only more potent with time.
+problem formulations for for various algorithms with an eye on resource
+efficiency may yet prove fruitful as NISQ era processors become only more
+potent with time.
 
 \section {Conclusion}
-The report summarises some recent research into using quantum algorithms 
+The report summarises recent research into using quantum algorithms 
 feasible on current NISQ era processors to derive approximate solutions to the
 NP hard vehicle routing problem and its variants. Particular attention has been
 drawn to the ways in which VRP can be cleverly formulated and encoded in order
 to reduce the amount of computing resources required while still maintaining
 an adequate solution quality.
 
-The minimal encoding first described in \cite{effbinopt} uses logarithmically
-as many qubits as classical binary variables in the problem, at the expense of
-sacrificing the ability to encode correlations within variables. It has been
-shown \cite{effvrp} to perform comparably to conventional encodings on both
-small and large scales for certain problem formulations.
+Given the nature of quantum computation, the concept of employing it to deal
+with complex and large scale search and optimisation problems will always be
+appealing, especially once conventional classical methods reach their limits
+of efficiency and accuracy as in the case of many NP problems. Although
+classical solvers for VRP are for the moment still much more consistent and
+yield more optimal results, research into quantum solvers may
+yet provide valuable insight by demonstrating a different perspective in
+tackling the problem, and possibly further the understanding and improvement
+of the general implementation of successful quantum optimisation, in
+particular the formulations and algorithms involved.
+
+Present day hardware limitations in terms of scale and reliability remain a
+significant hindrance in the pursuit of quantum advantage, hence the focus
+of current research on workarounds for these issues that often manifest as 
+highly tunable hybrid variational algorithms. The minimal encoding first
+described in \cite{effbinopt} uses logarithmically as many qubits as classical
+binary variables in the problem, at the expense of sacrificing the ability to
+encode correlations within variables. It has been shown \cite{effvrp} to perform
+comparably to conventional encodings on both small and large scales for certain
+problem formulations, highlighting as is often the case with quantum algorithms,
+that the problem specifics greatly impact performance metrics.
+
+In the case of such a flexible problem as the VRP, parameter tuning and
+ultimately the decision of favouring one approach over another currently places
+a heavy emphasis on experimental runs in order to determine heuristics. Aside
+from looking into alternatives, analysing the problem factors that govern these
+heuristics may be a logical next step.
+
 
 \textit{Acknowledgements.}
 This report was compiled as part of a quantum seminar held
@@ -1016,22 +1056,19 @@ reduced by a factor of $\frac{1}{8}$ for each particle located in between them,
 thereby justifying the nearest neighbour simplification.
 
 When considering electrons, the spin is antiparallel to the magnetic moment,
-given by:
+given by an expression of this form:
 \begin {equation*}
 \mu = \frac{-e}{2m_e} L
 \end {equation*}
-where $L$ represents angular momentum, so the Hamiltonian should be:
+where $L$ represents angular momentum \cite{mu_e}, so the Hamiltonian should be:
 \begin {equation*}
 H = - \sum_{\qeval{i\;j}} J_{ij} \sigma_i \sigma_j + \mu \sum_{i} h_i \sigma_i
 \end {equation*}
 however conventionally it is given as in \ref{isingspin}, with the second term
-carrying a negative sign.
+carrying a negative sign \cite{isingconv}.
 
 This results in the interactions being classified as ferromagnetic for
 $J_{ij} > 0$ and antiferromagnetic for $J_{ij} < 0$.
-
-\section {Ising and QUBO equivalence}
-
 
 \end {multicols}
 

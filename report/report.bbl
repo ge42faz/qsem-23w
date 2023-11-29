@@ -44,6 +44,57 @@ I.~D. Leonidas, A.~Dukakis, B.~Tan, and D.~G. Angelakis, ``Qubit efficient
   quantum algorithms for the vehicle routing problem on {NISQ} processors,''
   2023.
 
+\bibitem{karp21}
+R.~M. Karp, \emph{Reducibility among combinatorial problems}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 1972.
+
+\bibitem{vrpintro}
+G.~B. Dantzig and J.~H. Ramser, ``The truck dispatching problem,''
+  \emph{Management Science}, 1959.
+
+\bibitem{dijkstra}
+E.~W. Dijkstra, \emph{A note on two problems in connexion with graphs}.\hskip
+  1em plus 0.5em minus 0.4em\relax Springer, 1959.
+
+\bibitem{annealising}
+T.~Kadowaki and H.~Nishimori, ``Quantum annealing in the transverse ising
+  model,'' \emph{Physical Review E}, 1998.
+
+\bibitem{annealspinglass}
+P.~Ray, B.~K. Chakrabarti, and A.~Chakrabarti, ``Sherrington-{K}irkpatrick
+  model in a transverse field: {A}bsence of replica symmetry breaking due to
+  quantum fluctuations,'' \emph{Phys. Rev. B}, 1989.
+
+\bibitem{adiabaticsat}
+E.~Farhi, J.~Goldstone, S.~Gutmann, and M.~Sipser, ``Quantum computation by
+  adiabatic evolution,'' 2000.
+
+\bibitem{adiabatictheo}
+M.~Born and V.~Fock, ``Beweis des {A}diabatensatzes,'' \emph{Zeitschrift für
+  Physik}, 1928.
+
+\bibitem{spectralgap}
+T.~Cubitt, D.~Perez-Garcia, and M.~M. Wolf, ``Undecidability of the spectral
+  gap,'' \emph{Nature}, 2015.
+
+\bibitem{qcintro}
+M.~A. Nielsen and I.~L. Chuang, \emph{Quantum Computation and Quantum
+  Information}.\hskip 1em plus 0.5em minus 0.4em\relax Cambridge University
+  Press, 2010.
+
+\bibitem{matexp}
+J.~E. Cohen, S.~Friedland, T.~Kato, and F.~P. Kelly, ``Eigenvalue inequalities
+  for products of matrix exponentials,'' \emph{Linear Algebra and its
+  Applications}, 1982.
+
+\bibitem{variational}
+D.~J. Griffiths, \emph{Introduction to Quantum Mechanics}.\hskip 1em plus 0.5em
+  minus 0.4em\relax Pearson Education, 1995.
+
+\bibitem{nisqalg}
+M.~Brooks, ``Beyond quantum supremacy: the hunt for useful quantum computers,''
+  \emph{Nature}, 2019.
+
 \bibitem{qaoaintro}
 E.~Farhi, J.~Goldstone, and S.~Gutmann, ``A quantum approximate optimization
   algorithm,'' 2014.
@@ -66,23 +117,58 @@ A.~Lucas, ``Ising formulations of many {NP} problems,'' \emph{Frontiers in
 F.~Glover, G.~Kochenberger, R.~Hennig, and Y.~Du, ``A tutorial on formulating
   and using {QUBO} models,'' \emph{Ann Oper Res}, 2022.
 
+\bibitem{qubolist}
+D.~Ratke, ``List of {QUBO} formulations,'' 2021,
+  \url{https://blog.xa0.de/post/List-of-QUBO-formulations/}.
+
+\bibitem{isingmodel}
+E.~Ising, ``Beitrag zur {T}heorie des {F}erromagnetismus,'' \emph{Zeitschrift
+  für Physik}, 1925.
+
+\bibitem{mdvrp}
+J.~Renaud, L.~Gilbert, and F.~F. Boctor, \emph{A tabu search heuristic for the
+  multi-depot vehicle routing problem}.\hskip 1em plus 0.5em minus 0.4em\relax
+  Elsevier, 1996.
+
 \bibitem{cvrpqaoa}
 L.~Palackal, B.~Poggel, M.~Wulff, H.~Ehm, J.~M. Lorenz, and C.~B. Mendl,
   ``Quantum-assisted solution paths for the capacitated vehicle routing
   problem,'' 2023.
+
+\bibitem{multknapsack}
+A.~Awasthi, F.~Bär, J.~Doetsch, H.~Ehm, M.~Erdmann, M.~Hess, J.~Klepsch, P.~A.
+  Limacher, A.~Luckow, C.~Niedermeier, L.~Palackal, R.~Pfeiffer, P.~Ross,
+  H.~Safi, J.~Schönmeier-Kromer, O.~von Sicard, Y.~Wenger, K.~Wintersperger,
+  and S.~Yarkoni, \emph{Quantum computing techniques for multiple knapsack
+  problems}.\hskip 1em plus 0.5em minus 0.4em\relax Springer Nature
+  Switzerland, 2023.
 
 \bibitem{effbinopt}
 B.~Tan, M.-A. Lemonde, S.~Thanasilp, J.~Tangpanitanon, and D.~G. Angelakis,
   ``Qubit-efficient encoding schemes for binary optimisation problems,''
   \emph{Quantum}, 2021.
 
-\bibitem{adiabatictheo}
-M.~Born and V.~Fock, ``Beweis des adiabatensatzes,'' \emph{Zeitschrift für
-  Physik}, 1928.
+\bibitem{contopt}
+S.~J. Wright, \emph{Continuous optimization (nonlinear and linear
+  programming)}.\hskip 1em plus 0.5em minus 0.4em\relax Princeton University
+  Press, 2015.
+
+\bibitem{vqe}
+A.~Peruzzo, J.~McClean, P.~Shadbolt, M.-H. Yung, X.-Q. Zhou, P.~J. Love,
+  A.~Aspuru-Guzik, and J.~L. O'Brien, ``A variational eigenvalue solver on a
+  quantum processor,'' \emph{Nature Communications}, 2014.
 
 \bibitem{dipoleflux}
 T.~L. Chow, \emph{Introduction to electromagnetic theory: a modern
   perspective}.\hskip 1em plus 0.5em minus 0.4em\relax Jones \& Bartlett
   Learning, 2006.
+
+\bibitem{mu_e}
+X.~Fan, T.~G. Myers, B.~A.~D. Sukra, and G.~Gabrielse, ``Measurement of the
+  electron magnetic moment,'' \emph{Physical Review Letters}, 2022.
+
+\bibitem{isingconv}
+R.~Baierlein, \emph{Thermal Physics}.\hskip 1em plus 0.5em minus 0.4em\relax
+  Cambridge University Press, 1999.
 
 \end{thebibliography}
