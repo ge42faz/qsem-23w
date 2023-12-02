@@ -328,7 +328,7 @@ The series of unitary evolutions are commonly implemented in the gate model as
 qubit rotation operator arrays \cite{effvrp}. The parameters $\beta_i$ and
 $\gamma_i$ represent angle values for these rotations $H_x$ and $H_f$
 respectively, which can be interpreted as the discretised duration of time the
-system spends under a particular unitary evolution due to \eqref{unititer}.
+system spends under a particular unitary evolution due to \eqref{unitaryiter}.
 
 Since $H_f$ is typically diagonal w.r.t. $Z^{\otimes n}$ (see below
 \eqref{hdiag}), we typically choose the noncommuting mixer
@@ -539,7 +539,7 @@ where $d_i$ represents the demand score of node $v_i$ and
 \end {equation}
 
 While the principle remains identical to the first two constraints,
-The additional term $\Delta$ in $H_{\text{cap}}$ is a result of \textbf{cap}
+the additional term $\Delta$ in $H_{\text{cap}}$ is a result of \textbf{cap}
 being somewhat more relaxed, in that any value
 $\sum_{t, \; i} d_i x_{t, i}^r \leq m$
 for the loading of the vehicle is acceptable, instead of a hard requirement.
@@ -618,7 +618,7 @@ a way that \textbf{once} and \textbf{cap} hold true for each cluster.
 Furthermore, intuition suggests neighbouring nodes should not be split apart
 but rather be assigned to the same cluster to minimise edge costs.
 \begin {enumerate}[label=\textbf{cluster}, align=left]
-\item The cumulative edge cost $c_ij$ between all pairs of
+\item The cumulative edge cost $c_{ij}$ between all pairs of
 	nodes $(i, j)$ within a cluster should be minimal.
 \end {enumerate}
 
@@ -669,11 +669,11 @@ complete potential solution to the problem. The quantum state takes the form:
 \begin {align}
 \qvec{\psi(\theta)} 
 &= U(\theta)\qvec{\psi_0} \\
-&= \sum_{x \in \{0, \; 1\}^{n_c}} \alpha_x \qvec{x}
+&= \sum_{z \in \{0, \; 1\}^{n_c}} \alpha_z \qvec{z}
 \end {align}
 
 In this case, sampling the quantum state yields any given bitstring solution
-${x \in \{0, \; 1\}^{n_c}}$ with probability $\qnorm{\alpha_x}^2$, where
+${z \in \{0, 1\}^{n_c}}$ with probability $\qnorm{\alpha_z}^2$, where
 $\alpha$ is parametrised by a set of angles $\theta$. In variational
 algorithms, $\theta$ are heuristically determined values that serve to tune
 arrays of rotation unitaries, which are adjusted after each pass to attain
