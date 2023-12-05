@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  2 DEC 2023 15:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  5 DEC 2023 12:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1624,10 +1624,10 @@ Package rerunfilecheck Info: File `slides.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 45715 strings out of 478268
- 1087805 string characters out of 5846347
- 1611716 words of memory out of 5000000
- 62947 multiletter control sequences out of 15000+600000
+ 45711 strings out of 478268
+ 1087744 string characters out of 5846347
+ 1611746 words of memory out of 5000000
+ 62943 multiletter control sequences out of 15000+600000
  484482 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,21n,122p,1171b,2409s stack positions out of 10000i,1000n,20000p,200000b,200000s
