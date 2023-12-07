@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  1 DEC 2023 23:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.21)  8 DEC 2023 00:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -832,11 +832,11 @@ Package caption Info: End \AtBeginDocument code.
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for U+bbold on input line 1
-51.
+53.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/bbold/Ubbold.fd)
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 251.
+LaTeX Font Warning: Command \small invalid in math mode on input line 253.
 
 [2] [3]
 Missing character: There is no ; in font nullfont!
@@ -851,49 +851,49 @@ Missing character: There is no ; in font nullfont!
 <2fig.png, id=49, 345.29pt x 558.085pt>
 File: 2fig.png Graphic file (type png)
 <use 2fig.png>
-Package pdftex.def Info: 2fig.png  used on input line 835.
+Package pdftex.def Info: 2fig.png  used on input line 837.
 (pdftex.def)             Requested size: 220.50885pt x 356.40677pt.
 <4fig.png, id=51, 482.80376pt x 368.37625pt>
 File: 4fig.png Graphic file (type png)
 <use 4fig.png>
-Package pdftex.def Info: 4fig.png  used on input line 864.
+Package pdftex.def Info: 4fig.png  used on input line 866.
 (pdftex.def)             Requested size: 482.80258pt x 368.37534pt.
 
-Overfull \hbox (27.5585pt too wide) in paragraph at lines 864--872
+Overfull \hbox (27.5585pt too wide) in paragraph at lines 866--874
 [][] 
  []
 
 [8 <./2fig.png>] [9 <./4fig.png>] (./report.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 64--67
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
 []\OT1/cmr/m/n/10 P. Ray, B. K. Chakrabarti, and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--67
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
 \OT1/cmr/m/n/10 A. Chakrabarti, ``Sherrington-Kirkpatrick
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 121--123
+Underfull \hbox (badness 10000) in paragraph at lines 135--137
 \OT1/cmr/m/n/10 2021, https://blog.xa0.de/post/List-of-
  []
 
 
-Underfull \hbox (badness 7814) in paragraph at lines 139--145
+Underfull \hbox (badness 7814) in paragraph at lines 153--159
 \OT1/cmr/m/n/10 Li-macher, A. Luckow, C. Nie-der-meier,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--145
+Underfull \hbox (badness 10000) in paragraph at lines 153--159
 \OT1/cmr/m/n/10 J. Sch^^?onmeier-Kromer, O. von Sicard,
  []
 
 ) [11] [12] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 21918 strings out of 478268
- 457189 string characters out of 5846347
- 793259 words of memory out of 5000000
- 39724 multiletter control sequences out of 15000+600000
+ 21921 strings out of 478268
+ 457224 string characters out of 5846347
+ 794361 words of memory out of 5000000
+ 39727 multiletter control sequences out of 15000+600000
  480254 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,19n,89p,1171b,1725s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -919,7 +919,7 @@ local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/lo
 cal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loc
 al/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
 /local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb>
-Output written on report.pdf (12 pages, 705204 bytes).
+Output written on report.pdf (12 pages, 706216 bytes).
 PDF statistics:
  161 PDF objects out of 1000 (max. 8388607)
  98 compressed objects within 1 object stream

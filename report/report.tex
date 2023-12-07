@@ -91,12 +91,14 @@ routes for commercial or public interest.
 
 VRP, being itself a more general version of the Travelling Salesman Problem
 (TSP), is similarly an NP hard \cite{vrp} combinatorial optimisation problem
-with a solution space scaling factorially in the number of customers, and thus
-finding the definitive optimal solution already becomes intractable at
-two digit customer counts. The most optimal classical algorithms known to date
-and used in practice employ heuristics and greedy methods, some of the most well
-known to date being tabu search and column generation, to construct routes
-within single digit percentage tolerances.
+with a solution space scaling factorially in the number of customers, thus
+finding the definitive optimal solution through brute force becomes very
+rapidly intractable even for relatively small problem sizes. The most
+effective classical algorithms to date employed in practice revolve around
+heuristics and greedy methods, some notable examples being tabu search
+\cite{tabusearch} and column generation \cite{colgen}, able to construct
+routes within single digit percentage tolerances \cite{metaheuristic} for
+problem instances with verifiable optimal solutions.
 
 More recently, the noisy intermediate scale quantum (NISQ) era \cite{nisq} has
 paved the way for the development of variational quantum algorithms alongside
@@ -104,7 +106,7 @@ the potent quantum annealing \cite{annealintro} method as a contender for
 computing reliable and near optimal solutions to combinatorial optimisation
 problems, exploiting the unique inherent property of quantum algorithms to
 operate on the entire solution space at once, albeit incrementally and
-probabilistically.
+probabilistically \cite{qcintro}.
 
 Initial tests have shown some promise in applying these quantum algorithms
 to the VRP against classical solvers, achieving comparable accuracy on
