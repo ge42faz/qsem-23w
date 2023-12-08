@@ -21,7 +21,7 @@
 \citation{adiabatictheo}
 \citation{spectralgap}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Vehicle Routing Problem}{2}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  An illustration of the VRP as a graph problem. The white nodes represent customers, with an optional demand value $d_k$ or a time window interval. One aims to find the most efficient route (represented by the cumulative edge cost $\DOTSB \sum@ \slimits@ {c_{ij}}$) that delivers to all customers and respects the problem constraints. \relax }}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  An illustration of the VRP as a graph problem. The white nodes represent customers, optionally with a demand value $d_k$ or a time window interval. One aims to find the most efficient route or routes (represented by the cumulative edge cost $\DOTSB \sum@ \slimits@ {c_{ij}}$) that delivers to all customers and respects the problem constraints. \relax }}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {III}Quantum Optimisation}{2}{}\protected@file@percent }
 \citation{qcintro}
 \citation{matexp}
@@ -30,13 +30,13 @@
 \citation{nisqalg}
 \citation{qaoaintro}
 \citation{effvrp}
-\citation{mixeropt}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Sketch of the QAOA setup. The state is brought into uniform superposition after which repeated alternating application of rotation operators realises approximately the Hamiltonian $H = H_f + H_x$ according to \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces 3\hbox {}\unskip \@@italiccorr )}}. The result is measured in the $Z^{\otimes m}$ basis and the parameters $\beta , \gamma $ are optimised classically for the next run. \relax }}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Sketch of the QAOA setup. The state is brought into uniform superposition after which the repeated and alternating (layered) application of rotation operators realises approximately the time evolution under the Hamiltonian $H = H_f + H_x$ according to \textup  {\hbox {\mathsurround \z@ \normalfont  (\ignorespaces 3\hbox {}\unskip \@@italiccorr )}}. The result is measured in the $Z^{\otimes m}$ basis and the tunable parameters $\beta , \gamma $ that affect each QAOA layer are optimised classically for the next run. \relax }}{3}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{qaoacirc}{{2}{3}}
 \newlabel{lieprod}{{3}{3}}
 \newlabel{unitaryiter}{{4}{3}}
 \newlabel{qaoa}{{5}{3}}
+\citation{mixeropt}
 \citation{qaoadensitybound}
 \citation{isingnp}
 \citation{tutqubo}
@@ -47,7 +47,6 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  Lattice structure depicting the Ising model in two dimensions. At each lattice site $k \in \Lambda $ an arrow represents the atomic spin $\sigma _k \in \{-1, 1\}$ that influences the local dipole moment. Dashed lines are nearest neighbour interactions $J_{ij}$. \relax }}{4}{}\protected@file@percent }
 \newlabel{isingspin}{{8}{4}}
 \newlabel{isingq}{{9}{4}}
-\newlabel{hdiag}{{10}{4}}
 \citation{tutqubo}
 \citation{mdvrp}
 \citation{cvrpqaoa}
@@ -55,6 +54,7 @@
 \citation{cvrpanneal}
 \citation{cvrpanneal}
 \citation{cvrpqaoa}
+\newlabel{hdiag}{{10}{5}}
 \newlabel{hcvrp}{{16}{5}}
 \citation{cvrpqaoa}
 \citation{multknapsack}
@@ -78,14 +78,13 @@
 \citation{effvrp}
 \citation{effvrp}
 \citation{cvrpqaoa}
-\citation{vqe}
-\citation{cvrpqaoa}
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Experimental Results}{8}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces  Figure taken from \cite  {effvrp}. Performance comparison between the complete encoding (a, top) and the minimal encoding (c, bottom) with respect to the solution improvement after several optimisation runs. $n_{\text  {shots}}$ represents the curve obtained by sampling the state this many times. The limiting case is also shown. One observes markedly increased variance and slower convergence for the minimal encoding. \relax }}{8}{}\protected@file@percent }
 \newlabel{2fig}{{5}{8}}
+\citation{vqe}
+\citation{cvrpqaoa}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Figure taken from \cite  {effvrp}. The left column (a, d) shows optimisation runs with the minimal encoding for increasing problem sizes. Insufficient sampling led to convergence not being attained for $n_c = 3964$ classical variables. The right column (b, e) reflects the cumulative distribution of solutions obtained with the minimal encoding on various NISQ devices, compared with $4 \cdot 10^8$ randomly generated solutions charted in black. \relax }}{9}{}\protected@file@percent }
 \newlabel{4fig}{{6}{9}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{9}{}\protected@file@percent }
 \citation{effbinopt}
 \citation{effvrp}
 \bibstyle{IEEEtran}
@@ -102,6 +101,7 @@
 \bibcite{karp21}{10}
 \bibcite{vrpintro}{11}
 \bibcite{dijkstra}{12}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{10}{}\protected@file@percent }
 \bibcite{annealising}{13}
 \bibcite{annealspinglass}{14}
 \bibcite{adiabaticsat}{15}
@@ -126,12 +126,12 @@
 \bibcite{dipoleflux}{34}
 \bibcite{mu_e}{35}
 \bibcite{isingconv}{36}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Schrödinger equation and unitarity}{11}{}\protected@file@percent }
-\newlabel{schrodinger}{{A}{11}}
 \citation{adiabatictheo}
 \citation{dipoleflux}
 \citation{mu_e}
 \citation{isingconv}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Schrödinger equation and unitarity}{12}{}\protected@file@percent }
+\newlabel{schrodinger}{{A}{12}}
 \@writefile{toc}{\contentsline {section}{\numberline {B}Commutativity and adiabatic theorem}{12}{}\protected@file@percent }
 \newlabel{adiabatic}{{B}{12}}
 \@writefile{toc}{\contentsline {section}{\numberline {C}Ising Model and Hamiltonian}{12}{}\protected@file@percent }
