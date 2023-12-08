@@ -1,8 +1,8 @@
 # qsem-23w
 
 Research report compiled as part of a
-[Seminar: Advanced Topics of Quantum Computing (IN2107, IN2183, IN0014)](https://www.moodle.tum.de/course/view.php?id=90622)
-held by the [Chair for Quantum Computing](https://www5.in.tum.de/~quanTUMcomputing/) at
+[Seminar: Advanced Topics of Quantum Computing](https://www.moodle.tum.de/course/view.php?id=90622)
+held during the winter semester 2023 by the [Chair for Quantum Computing](https://www5.in.tum.de/~quanTUMcomputing/) at
 [Technische Universität München](https://www.cit.tum.de/cit/startseite/).
 
 The report summarises recent research in optimising the problem encoding of [NP hard](https://en.wikipedia.org/wiki/NP-hardness)
